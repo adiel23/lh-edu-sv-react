@@ -1,0 +1,210 @@
+/* Importar una fuente limpia similar a la de la imagen */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc; /* Fondo muy claro */
+  color: #0f172a;
+}
+
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- Header --- */
+.home-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3rem;
+  width: 100%;
+}
+
+.home-page__logo-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: white;
+  padding: 8px 16px 8px 8px;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.home-page__icon-bolt-bg {
+  background-color: #f97316;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-page__icon-bolt {
+  width: 16px;
+  height: 16px;
+}
+
+.home-page__logo-text {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* --- Main Content --- */
+.home-page__main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  margin-top: -5vh; /* Ajuste visual para centrar mejor considerando el footer */
+}
+
+.home-page__badge {
+  background-color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #f59e0b;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.home-page__main-title {
+  line-height: 0.9;
+  margin-bottom: 1.5rem;
+}
+
+.home-page__title-dark {
+  font-size: 5rem;
+  font-weight: 900;
+  color: #111827;
+  letter-spacing: -2px;
+}
+
+.home-page__title-orange {
+  font-size: 5rem;
+  font-weight: 900;
+  color: #f97316;
+  font-style: italic;
+  letter-spacing: -2px;
+  transform: translateX(10px); /* Ligero desplazamiento acorde al diseño */
+}
+
+.home-page__subtitle {
+  font-size: 1.1rem;
+  color: #334155;
+  font-weight: 600;
+  margin-bottom: 3.5rem;
+}
+
+/* --- Botón Google --- */
+.home-page__google-login-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: white;
+  color: #1e293b;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border: 4px solid #f1f5f9;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-page__google-login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.home-page__google-icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* --- Footer Features --- */
+.home-page__features-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  padding-bottom: 3rem;
+}
+
+.home-page__feature-pill {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: white;
+  padding: 12px 24px 12px 12px;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  min-width: 220px;
+}
+
+.home-page__feature-icon-bg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.home-page__feature-icon-bg--orange {
+  background-color: #f97316;
+}
+
+.home-page__feature-icon-bg--blue {
+  background-color: #3b82f6;
+}
+
+.home-page__feature-icon-bg--purple {
+  background-color: #a855f7;
+}
+
+.home-page__feature-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.home-page__feature-text-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.home-page__feature-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 1px;
+}
+
+.home-page__feature-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}

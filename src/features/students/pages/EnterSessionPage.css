@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700;900&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fdf8f1; /* Fondo beige claro */
+  color: #0f172a;
+  overflow-x: hidden;
+}
+
+.enter-session-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* --- Decoraciones de fondo --- */
+.enter-session-page__bg-blob {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 250px;
+  height: 250px;
+  background-color: #ffffff;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.enter-session-page__bg-star {
+  position: absolute;
+  bottom: 15%;
+  right: 5%;
+  width: 120px;
+  height: 120px;
+  z-index: 0;
+  opacity: 0.9;
+  transform: rotate(15deg);
+}
+
+/* --- Header --- */
+.enter-session-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.enter-session-page__logo-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: white;
+  padding: 8px 20px 8px 8px;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.enter-session-page__icon-bolt-bg {
+  background-color: #f97316;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.enter-session-page__icon-bolt { width: 16px; height: 16px; }
+
+.enter-session-page__logo-text {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.enter-session-page__help-btn {
+  background-color: white;
+  color: #f97316;
+  border: 1px solid #fed7aa;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: 900;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Main Content --- */
+.enter-session-page__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 2rem;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 10;
+}
+
+.enter-session-page__title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #111827;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+}
+
+.enter-session-page__subtitle {
+  font-size: 1rem;
+  color: #64748b;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+
+.enter-session-page__avatar-face {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 2rem;
+}
+
+/* --- PIN Display --- */
+.enter-session-page__pin-display {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+
+.enter-session-page__pin-slot {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: 4px solid #e2e8f0;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #1e293b;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.enter-session-page__pin-slot--filled {
+  background-color: white;
+  border-color: #cbd5e1;
+}
+
+/* --- Teclado --- */
+.enter-session-page__keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.enter-session-page__key-btn {
+  background-color: white;
+  border: none;
+  border-radius: 16px;
+  height: 40px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e293b;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #e2e8f0, 0 8px 15px rgba(0, 0, 0, 0.02);
+  transition: transform 0.1s, box-shadow 0.1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.enter-session-page__key-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #e2e8f0;
+}
+
+.enter-session-page__key-btn--delete {
+  background-color: #fff1f2;
+  color: #fb7185;
+}
+
+.enter-session-page__icon-delete {
+  width: 32px;
+  height: 32px;
+}
+
+/* --- Footer --- */
+.enter-session-page__footer {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+}
+
+.enter-session-page__enter-class-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  font-size: 1.2rem;
+  font-weight: 900;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.enter-session-page__enter-class-btn--active {
+  background-color: #f97316;
+  color: white;
+}
+
+.enter-session-page__btn-bolt {
+  width: 24px;
+  height: 24px;
+}

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './EnterSessionPage.css';
 
 function EnterSessionPage() {
   const [pin, setPin] = useState('');
+  const navigate = useNavigate();
 
   const handleNumberClick = (number) => {
     if (pin.length < 6) {
@@ -15,6 +17,12 @@ function EnterSessionPage() {
   };
 
   const isPinComplete = pin.length === 6;
+
+  const handleEnterClass = () => {
+    if (isPinComplete) {
+      navigate('/students/quiz');
+    }
+  };
 
   return (
     <div className="enter-session-page">
@@ -85,7 +93,11 @@ function EnterSessionPage() {
 
       {/* Botón Inferior */}
       <footer className="enter-session-page__footer">
-        <button className={`enter-session-page__enter-class-btn ${isPinComplete ? 'enter-session-page__enter-class-btn--active' : ''}`}>
+        <button
+          className={`enter-session-page__enter-class-btn ${isPinComplete ? 'enter-session-page__enter-class-btn--active' : ''}`}
+          onClick={handleEnterClass}
+          disabled={!isPinComplete}
+        >
           ¡ENTRAR A CLASE! 
           <svg viewBox="0 0 24 24" fill="currentColor" className="enter-session-page__btn-bolt">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />

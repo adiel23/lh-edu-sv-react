@@ -1,0 +1,119 @@
+:root {
+  --color-primary: #ff8c00;
+  --color-bg-light: #fdfcf9;
+  --color-text-dark: #2d2d2d;
+  --color-text-muted: #8e8e8e;
+  --border-radius-lg: 24px;
+  --border-radius-sm: 12px;
+}
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-bg-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- MAIN CONTENT --- */
+.main-content {
+  flex-grow: 1;
+  padding: 2rem 3rem;
+  background-color: #fcfcfc;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  color: var(--color-text-muted);
+}
+
+.header__breadcrumb {
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+}
+
+.header__location {
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+/* --- WELCOME CARD --- */
+.welcome-card {
+  background-color: white;
+  border-radius: var(--border-radius-lg);
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+}
+
+.welcome-card__badge {
+  display: inline-block;
+  background-color: #fff5e6;
+  color: #cc8400;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.welcome-card__title {
+  font-size: 2.5rem;
+  margin: 0 0 1rem 0;
+  color: #1a1a1a;
+}
+
+.welcome-card__text {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.welcome-card__actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* --- REUSABLE BUTTONS --- */
+.button {
+  padding: 14px 28px;
+  border-radius: 30px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button--primary {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+}
+
+.button--secondary {
+  background-color: white;
+  color: var(--color-text-dark);
+  border: 1px solid #e0e0e0;
+}
+
+.welcome-card__illustration-bg {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10rem;
+  opacity: 0.05;
+  user-select: none;
+}

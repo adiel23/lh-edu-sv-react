@@ -220,12 +220,16 @@ body {
   border-radius: 16px;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s ease;
 }
 
 .enter-session-page__enter-class-btn--active {
   background-color: #f97316;
   color: white;
+}
+
+.enter-session-page__enter-class-btn:hover {
+  transform: scale(1.1);
 }
 
 .enter-session-page__btn-bolt {

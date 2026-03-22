@@ -1,0 +1,80 @@
+/* --- SIDEBAR --- */
+.sidebar {
+  width: 260px;
+  background-color: white;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #f0f0f0;
+}
+
+.sidebar__logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 3rem;
+}
+
+.sidebar__logo-icon {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.sidebar__title {
+  font-size: 1.2rem;
+  margin: 0;
+  color: var(--color-text-dark);
+}
+
+.sidebar__subtitle {
+  font-size: 0.7rem;
+  margin: 0;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.sidebar__list {
+  list-style: none;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.sidebar__item {
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border-radius: var(--border-radius-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: 0.3s;
+}
+
+.sidebar__item--active {
+  background-color: #fff5e6;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.sidebar__support-card {
+  background-color: #fff9f0;
+  border: 1px dashed #ffd8a8;
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.sidebar__support-button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+}

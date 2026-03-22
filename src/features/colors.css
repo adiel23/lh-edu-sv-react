@@ -1,0 +1,16 @@
+:root {
+  --bg-primary: #a496d6;
+  --bg-card: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-light: #ffffff;
+  --color-red: #ff3b5c;
+  --color-red-light: #ffe5e9;
+  --color-green: #00c48c;
+  --color-green-light: #e5f9f3;
+  --color-blue: #00a8ff;
+  --color-blue-light: #e5f4ff;
+  --color-yellow: #ffb100;
+  --color-yellow-light: #fff7e5;
+  --color-orange: #d99a6c;
+  --font-main: 'Inter', system-ui, sans-serif;
+}

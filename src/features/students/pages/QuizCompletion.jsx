@@ -1,7 +1,16 @@
 import React from 'react';
 import './QuizCompletion.css';
+import { useNavigate } from 'react-router-dom';
 
 const QuizCompletion = () => {
+    const navigate = useNavigate();
+
+    // (function() {
+    //     setTimeout(() => {
+    //         navigate('/students/quiz-results');
+    //     }, 2000);
+    // })();
+
   return (
     <div className="quiz-screen">
       {/* Header */}

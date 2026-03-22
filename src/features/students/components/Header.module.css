@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.header__logo-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: white;
+  padding: 8px 20px 8px 8px;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.header__logo-pill:hover {
+  transform: translateY(2px);
+}
+
+.header__icon-bolt-bg {
+  background-color: #f97316;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__icon-bolt { width: 16px; height: 16px; }
+
+.header__logo-text {
+  font-weight: 700;
+  font-size: 0.95rem;
+}

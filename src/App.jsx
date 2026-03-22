@@ -4,6 +4,7 @@ import EnterSessionPage from './features/students/pages/EnterSessionPage';
 import DashboardPage from './features/teachers/pages/DashboardPage';
 import QuizPage from './features/students/pages/QuizPage';
 import QuizCompletion from './features/students/pages/QuizCompletion';
+import QuizResults from './features/students/pages/QuizResults';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/students/enter-session" element={<EnterSessionPage/>} />
         <Route path="/students/quiz" element={<QuizPage/>} />
         <Route path="/students/quiz-completion" element={<QuizCompletion/>} />
+        <Route path="/students/quiz-results" element={<QuizResults/>} />
         <Route path="/teachers/dashboard" element={<DashboardPage/>} />
       </Routes>
     </BrowserRouter>

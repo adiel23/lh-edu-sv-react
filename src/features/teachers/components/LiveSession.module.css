@@ -1,0 +1,431 @@
+@import '../../colors.css';
+
+.container {
+    min-height: 100%;
+    padding: 48px;
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(255, 140, 0, 0.15), transparent 26%),
+        linear-gradient(145deg, #dff5fb 0%, #c7e9f3 48%, #bfe0eb 100%);
+}
+
+.live-session {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.countdown {
+    position: relative;
+    grid-column: 1 / 3;
+    overflow: hidden;
+    padding: 32px;
+    border-radius: 32px;
+    display: flex;
+    align-items: stretch;
+    background:
+        linear-gradient(135deg, rgba(255, 140, 0, 0.98), rgba(235, 129, 0, 0.92)),
+        white;
+    box-shadow: 0 24px 60px rgba(59, 86, 108, 0.16);
+}
+
+.countdown::before,
+.countdown::after {
+    content: '';
+    position: absolute;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.countdown::before {
+    width: 260px;
+    height: 260px;
+    top: -110px;
+    right: -60px;
+}
+
+.countdown::after {
+    width: 180px;
+    height: 180px;
+    bottom: -90px;
+    left: -40px;
+}
+
+.countdown__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.countdown__eyebrow {
+    width: fit-content;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    color: var(--text-light);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.countdown__title {
+    margin: 0;
+    color: var(--text-light);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.05;
+}
+
+.countdown__subtitle {
+    margin: 0;
+    max-width: 52ch;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.countdown__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.countdown__timer-chip,
+.countdown__stat {
+    min-width: 180px;
+    padding: 18px 20px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(10px);
+}
+
+.countdown__timer-label,
+.countdown__stat-label {
+    display: block;
+    margin-bottom: 6px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.countdown__timer {
+    margin: 0;
+    color: var(--text-light);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1;
+}
+
+.countdown__progress-bar {
+    width: 100%;
+    height: 14px;
+    margin-top: 4px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.24);
+}
+
+.countdown__progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #fff7da, #ffffff);
+    transition: width 0.3s ease;
+}
+
+.countdown__stat-value {
+    color: var(--text-light);
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.statistics-card {
+    position: relative;
+    overflow: hidden;
+    padding: 28px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 18px 40px rgba(78, 103, 121, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    backdrop-filter: blur(12px);
+}
+
+.statistics-card::before {
+    content: '';
+    position: absolute;
+    inset: auto -24px -40px auto;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    opacity: 0.16;
+}
+
+.statistics-card--completed::before {
+    background: var(--color-green);
+}
+
+.statistics-card--pending::before {
+    background: var(--color-blue);
+}
+
+.statistics-card__eyebrow {
+    color: #5f6b76;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.statistics-card__title {
+    margin: 0;
+    color: #163047;
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.statistics-card__number {
+    margin: 0;
+    color: #0e2233;
+    font-size: 2.75rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.statistics-card__caption {
+    margin: 0;
+    color: #5c7385;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.statistics-card__progress-bar {
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #edf3f8;
+}
+
+.statistics-card__progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--color-green), #35d6a5);
+    transition: width 0.3s ease;
+}
+
+.statistics-card__progress-fill--pending {
+    background: linear-gradient(90deg, var(--color-blue), #5dc6ff);
+}
+
+.table {
+    grid-column: 1 / 3;
+    padding: 28px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.74);
+    box-shadow: 0 18px 40px rgba(78, 103, 121, 0.1);
+}
+
+.table__topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.table__title {
+    margin: 0 0 6px;
+    color: #163047;
+    font-size: 1.25rem;
+}
+
+.table__subtitle {
+    margin: 0;
+    color: #657a8c;
+    font-size: 0.95rem;
+}
+
+.table__badge {
+    align-self: center;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: #fff1de;
+    color: var(--color-orange-dark);
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.table__content {
+    overflow: hidden;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 20px;
+    background: #fcfdff;
+}
+
+.table__header {
+    background: #f4f8fb;
+}
+
+.table__row:not(:last-child) .table__cell {
+    border-bottom: 1px solid #e7eef5;
+}
+
+.table__cell {
+    padding: 16px;
+    text-align: left;
+    color: #17324a;
+    font-size: 0.95rem;
+}
+
+.table__student {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.table__avatar {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #ffe1b8, #ffd08d);
+    color: #8a4d00;
+    font-weight: 900;
+}
+
+.table__name {
+    font-weight: 700;
+}
+
+.table__status {
+    display: inline-flex;
+    align-items: center;
+    min-width: 118px;
+    justify-content: center;
+    padding: 10px 12px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.table__status--completed {
+    background: var(--color-green-light);
+    color: #078a65;
+}
+
+.table__status--pending {
+    background: var(--color-blue-light);
+    color: #0d78b3;
+}
+
+.table__progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.table__progress-track {
+    flex: 1;
+    height: 10px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e7eef5;
+}
+
+.table__progress-fill {
+    height: 100%;
+    border-radius: inherit;
+}
+
+.table__progress-fill--completed {
+    background: linear-gradient(90deg, var(--color-green), #3ad5a8);
+}
+
+.table__progress-fill--pending {
+    background: linear-gradient(90deg, var(--color-orange), #ffba52);
+}
+
+.table__progress-value {
+    min-width: 42px;
+    color: #5f7385;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+@media (max-width: 900px) {
+    .container {
+        padding: 24px;
+    }
+
+    .live-session {
+        grid-template-columns: 1fr;
+    }
+
+    .countdown,
+    .table {
+        grid-column: auto;
+    }
+
+    .table__topbar {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 18px;
+    }
+
+    .countdown,
+    .statistics-card,
+    .table {
+        padding: 20px;
+        border-radius: 24px;
+    }
+
+    .countdown__meta,
+    .table__progress {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .table__content,
+    .table__header,
+    .table__body,
+    .table__row,
+    .table__cell {
+        display: block;
+        width: 100%;
+    }
+
+    .table__header {
+        display: none;
+    }
+
+    .table__row {
+        padding: 14px 0;
+    }
+
+    .table__cell {
+        padding: 10px 0;
+        border-bottom: none;
+    }
+
+    .table__row:not(:last-child) {
+        border-bottom: 1px solid #e7eef5;
+    }
+}

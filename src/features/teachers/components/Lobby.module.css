@@ -1,0 +1,316 @@
+@import '../../colors.css';
+
+.lobby {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--color-lightpurple); /* Fondo morado claro */
+  position: relative;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- Topbar --- */
+.lobby__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+}
+
+.lobby__topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.lobby__back-btn {
+  background-color: var(--color-orange);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px color-mix(in srgb, var(--color-orange) 20%, transparent);
+}
+
+.lobby__back-btn:hover {
+  background-color: var(--color-orange-dark);
+}
+
+.lobby__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.lobby__topbar-right {
+  display: flex;
+  gap: 10px;
+}
+
+.lobby__icon-btn {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-orange);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* --- Código de Acceso --- */
+.lobby__access-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.lobby__access-badge {
+  background-color: #ffffff;
+  color: var(--color-orange);
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 8px 20px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.lobby__access-code {
+  display: flex;
+  gap: 15px;
+}
+
+.lobby__digit {
+  background-color: #ffffff;
+  width: 70px;
+  height: 80px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #2c3e50;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* --- Main Content (Paneles) --- */
+.lobby__main-content {
+  display: flex;
+  gap: 30px;
+  padding: 0 40px 120px 40px; /* Padding bottom extra para el footer */
+  justify-content: center;
+}
+
+.lobby__panel {
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 30px;
+  flex: 1;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.lobby__panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.lobby__panel-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lobby__panel-icon {
+  font-size: 1.5rem;
+  color: var(--color-orange);
+}
+
+.lobby__panel-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.lobby__counter-badge {
+  background-color: var(--color-orange);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* --- Cuestionario --- */
+.lobby__questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.lobby__question-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: #f8f9fc;
+  border: 1px solid #edf2f7;
+  padding: 16px 20px;
+  border-radius: 16px;
+}
+
+.lobby__question-number {
+  background-color: #fff7ed;
+  color: var(--color-orange);
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  border-radius: 12px;
+}
+
+.lobby__question-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* --- Sala de Espera --- */
+.lobby__students-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.lobby__student-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 1px solid transparent;
+}
+
+.lobby__student-card-ready {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.lobby__student-card-absent {
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.lobby__student-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-size: 0.9rem;
+}
+
+.lobby__student-card-ready .lobby__student-avatar {
+  color: #22c55e;
+}
+
+.lobby__student-card-absent .lobby__student-avatar {
+  color: #94a3b8;
+}
+
+.lobby__student-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.lobby__student-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 2px 0;
+}
+
+.lobby__student-status {
+  font-size: 0.65rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.lobby__student-card-ready .lobby__student-status {
+  color: #22c55e;
+}
+
+.lobby__student-card-absent .lobby__student-status {
+  color: #94a3b8;
+}
+
+.lobby__waiting-message {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* --- Footer Acciones --- */
+.lobby__footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.02);
+}
+
+.lobby__btn-secondary:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.lobby__btn-primary {
+  background-color: var(--color-orange);
+  color: #ffffff;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 100px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-orange) 30%, transparent);
+}
+
+.lobby__btn-primary:hover {
+  background-color: var(--color-orange-dark);
+}

@@ -260,7 +260,7 @@
 .quiz__option--yellow .quiz__option-letter { background-color: var(--color-yellow); }
 
 .quiz__option--active {
-  border-color: var(--color-yellow);
+  border-color: var(--color-orange);
 }
 
 /* Actions */
@@ -282,7 +282,7 @@
 }
 
 .quiz__btn-submit {
-  background: var(--color-orange);
+  background: rgb(245, 198, 145);
   border: none;
   color: white;
   padding: 20px 40px;
@@ -300,7 +300,7 @@
 }
 
 .quiz__btn-submit--active {
-  background: var(--color-yellow);
+  background: var(--color-orange);
 }
 
 /* Footer Tip */

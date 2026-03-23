@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700;900&display=swap');
 
+@import '../../colors.css';
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,7 +10,6 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #fdf8f1; /* Fondo beige claro */
   color: #0f172a;
   overflow-x: hidden;
 }
@@ -224,7 +225,7 @@ body {
 }
 
 .enter-session-page__enter-class-btn--active {
-  background-color: #f97316;
+  background-color: var(--color-orange);
   color: white;
 }
 

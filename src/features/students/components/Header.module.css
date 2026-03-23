@@ -1,3 +1,5 @@
+@import '../../colors.css';
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -25,7 +27,7 @@
 }
 
 .header__icon-bolt-bg {
-  background-color: #f97316;
+  background-color: var(--color-orange);
   color: white;
   width: 32px;
   height: 32px;

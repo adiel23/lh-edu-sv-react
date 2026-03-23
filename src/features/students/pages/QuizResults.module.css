@@ -8,7 +8,6 @@
 }
 
 body {
-  background-color: var(--bg-light);
   font-family: 'Segoe UI', Roboto, sans-serif;
   color: var(--text-dark);
 }

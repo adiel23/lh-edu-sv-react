@@ -1,0 +1,41 @@
+@import '../../colors.css';
+
+:root {
+  --color-primary: #ff8c00;
+  --color-bg-light: #fdfcf9;
+  --color-text-dark: #2d2d2d;
+  --color-text-muted: #8e8e8e;
+  --border-radius-lg: 24px;
+  --border-radius-sm: 12px;
+}
+
+.dashboard {
+  padding-left: 260px; /* Ancho del sidebar */
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- MAIN CONTENT --- */
+.main {
+  flex-grow: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+}
+
+.header__breadcrumb {
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+}
+
+.header__location {
+  text-align: right;
+  font-size: 0.75rem;
+}

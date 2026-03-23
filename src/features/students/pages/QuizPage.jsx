@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import './QuizPage.css';
+import styles from './QuizPage.module.css';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 
 let correctAnswers = 0;
 
@@ -143,56 +144,44 @@ const QuizPage = () => {
   }
 
   return (
-    <main className="quiz">
-      {/* Header */}
-      <header className="quiz__header">
-        <div className="quiz__brand">
-          <div className="quiz__brand-icon">⚡</div>
-          <div className="quiz__brand-text">
-            <h1 className="quiz__brand-title">HODLer Academy</h1>
-            <span className="quiz__brand-subtitle">🟢 QUIZ DE BITCOIN 101 (DEMO)</span>
-          </div>
-        </div>
-        {/* <div className="quiz__controls">
-          <span className="quiz__demo-badge">💰 DEMO</span>
-          <button className="quiz__close-btn" aria-label="Cerrar">✕</button>
-        </div> */}
-      </header>
+    <div className={styles.container}>
+      <Header/>
+      <main className={styles.quiz}>
 
       {/* Progress Section */}
-      <section className="quiz__progress-section">
-        <div className="quiz__rocket">
-          <span className="quiz__rocket-tooltip">¡VAMOS!</span>
-          <div className="quiz__rocket-icon">🚀</div>
+      <section className={styles['quiz__progress-section']}>
+        <div className={styles['quiz__rocket']}>
+          <span className={styles['quiz__rocket-tooltip']}>¡VAMOS!</span>
+          <div className={styles['quiz__rocket-icon']}>🚀</div>
         </div>
-        <div className="quiz__progress-info">
-          <span className="quiz__progress-label">PROGRESO DEL VIAJE</span>
-          <span className="quiz__progress-count"><span className="quiz__progress-current">{currentQuestionIndex + 1}</span> / {QUESTIONS.length}</span>
+        <div className={styles['quiz__progress-info']}>
+          <span className={styles['quiz__progress-label']}>PROGRESO DEL VIAJE</span>
+          <span className={styles['quiz__progress-count']}><span className={styles['quiz__progress-current']}>{currentQuestionIndex + 1}</span> / {QUESTIONS.length}</span>
         </div>
-        <div className="quiz__progress-bar">
-          <div className="quiz__progress-fill"></div>
+        <div className={styles['quiz__progress-bar']}>
+          <div className={styles['quiz__progress-fill']}></div>
         </div>
       </section>
 
       {/* Question Card */}
-      <section className="quiz__question-card">
-        <span className="quiz__question-badge">{QUESTIONS[currentQuestionIndex].badge}</span>
-        <h2 className="quiz__question-title">{QUESTIONS[currentQuestionIndex].pregunta}</h2>
+      <section className={styles['quiz__question-card']}>
+        <span className={styles['quiz__question-badge']}>{QUESTIONS[currentQuestionIndex].badge}</span>
+        <h2 className={styles['quiz__question-title']}>{QUESTIONS[currentQuestionIndex].pregunta}</h2>
       </section>
 
       {/* Options Grid */}
-      <section className="quiz__options">
+      <section className={styles['quiz__options']}>
         
         {QUESTIONS[currentQuestionIndex].opciones.map((opcion) => {
           const isActive = selectedOption?.id === opcion.id;
           return (
             <button
               key={opcion.id}
-              className={`quiz__option quiz__option--${getOptionColor(opcion.id) || 'default'} ${isActive ? 'quiz__option--active' : ''}`}
+              className={`${styles.quiz__option} ${styles[`quiz__option--${getOptionColor(opcion.id)}`]} ${isActive ? styles['quiz__option--active'] : ''}`}
               onClick={() => handleOptionClick(opcion)}
             >
-              <div className="quiz__option-letter">{opcion.id}</div>
-              <span className="quiz__option-text">{opcion.texto}</span>
+              <div className={styles['quiz__option-letter']}>{opcion.id}</div>
+              <span className={styles['quiz__option-text']}>{opcion.texto}</span>
               {/* <div className="quiz__option-radio"></div> */}
             </button>
           );
@@ -201,24 +190,25 @@ const QuizPage = () => {
       </section>
 
       {/* Actions */}
-      <section className="quiz__actions">
-        <button className="quiz__btn-skip">⏩ Saltar por ahora</button>
-        <button className={`quiz__btn-submit ${selectedOption ? 'quiz__btn-submit--active' : ''}`} onClick={handleSubmitAnswer}>ENVIAR RESPUESTA 🚀</button>
+      <section className={styles['quiz__actions']}>
+        <button className={styles['quiz__btn-skip']}>⏩ Saltar por ahora</button>
+        <button className={`${styles['quiz__btn-submit']} ${selectedOption ? styles['quiz__btn-submit--active'] : ''}`} onClick={handleSubmitAnswer}>ENVIAR RESPUESTA 🚀</button>
       </section>
 
       {/* Footer Tip */}
-      <footer className="quiz__tip">
-        <div className="quiz__tip-icon">💡</div>
-        <div className="quiz__tip-content">
-          <h3 className="quiz__tip-title">
+      <footer className={styles['quiz__tip']}>
+        <div className={styles['quiz__tip-icon']}>💡</div>
+        <div className={styles['quiz__tip-content']}>
+          <h3 className={styles['quiz__tip-title']}>
             "CADA RESPUESTA CORRECTA TE ACERCA AL PREMIO EN BITCOIN" ⚡
           </h3>
-          <p className="quiz__tip-text">
+          <p className={styles['quiz__tip-text']}>
             "¡Recuerda que cada respuesta correcta te acerca a los 100 sats del premio final!"
           </p>
         </div>
       </footer>
-    </main>
+      </main>
+    </div>
   );
 };
 

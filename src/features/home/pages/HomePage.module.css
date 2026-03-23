@@ -13,10 +13,16 @@ body {
   color: #0f172a;
 }
 
-.home-page {
+.container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   position: relative;
   overflow: hidden;
 }
@@ -69,7 +75,6 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2rem;
   margin-top: -5vh; /* Ajuste visual para centrar mejor considerando el footer */
 }
 

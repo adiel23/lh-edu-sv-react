@@ -1,5 +1,5 @@
 import React from 'react';
-import './QuizResults.css';
+import styles from './QuizResults.module.css';
 import Header from '../components/Header';
 
 const QuizResults = () => {
@@ -10,52 +10,52 @@ const QuizResults = () => {
   ];
 
   return (
-    <div className="container">
+    <div className={styles.container}>
         <Header />
-        <div className="dashboard">
-        <header className="dashboard__header">
-            <h1 className="dashboard__title">Resultados de Clase <span className="icon">⭐</span></h1>
+        <div className={styles.dashboard}>
+        <header className={styles['dashboard__header']}>
+            <h1 className={styles['dashboard__title']}>Resultados de Clase <span className={styles.icon}>⭐</span></h1>
         </header>
 
         {/* Hero Card */}
-        <section className="hero-card">
-            <div className="hero-card__content">
-            <span className="hero-card__badge">MEJOR DESEMPEÑO</span>
-            <h2 className="hero-card__main-title">Alex Rivers es el campeón!</h2>
-            <p className="hero-card__description">
+        <section className={styles['hero-card']}>
+            <div className={styles['hero-card__content']}>
+            <span className={styles['hero-card__badge']}>MEJOR DESEMPEÑO</span>
+            <h2 className={styles['hero-card__main-title']}>Alex Rivers es el campeón!</h2>
+            <p className={styles['hero-card__description']}>
                 Ha ganado el Trofeo Bitcoin por su excelente participación y puntuación perfecta.
             </p>
             </div>
-            <div className="hero-card__shape"></div>
+            <div className={styles['hero-card__shape']}></div>
         </section>
 
         {/* Leaderboard Table */}
-        <div className="leaderboard">
-            <div className="leaderboard__header">
+        <div className={styles.leaderboard}>
+            <div className={styles['leaderboard__header']}>
             <span>RANGO</span>
             <span>ESTUDIANTE</span>
             <span>PUNTAJE</span>
             <span>PREMIO</span>
             </div>
             
-            <div className="leaderboard__body">
+            <div className={styles['leaderboard__body']}>
             {students.map((student) => (
-                <div key={student.rank} className={`leaderboard__row ${student.rank === 1 ? 'leaderboard__row--highlighted' : ''}`}>
-                <div className="leaderboard__rank">
-                    {student.rank} {student.rank === 1 && <span className="icon">🎗️</span>}
+                <div key={student.rank} className={`${styles['leaderboard__row']} ${student.rank === 1 ? styles['leaderboard__row--highlighted'] : ''}`}>
+                <div className={styles['leaderboard__rank']}>
+                    {student.rank} {student.rank === 1 && <span className={styles.icon}>🎗️</span>}
                 </div>
-                <div className="leaderboard__student">
-                    <div className="leaderboard__avatar">{student.name.charAt(0)}</div>
+                <div className={styles['leaderboard__student']}>
+                    <div className={styles['leaderboard__avatar']}>{student.name.charAt(0)}</div>
                     <div>
-                    <div className="leaderboard__name">{student.name}</div>
-                    <div className="leaderboard__grade">{student.grade}</div>
+                    <div className={styles['leaderboard__name']}>{student.name}</div>
+                    <div className={styles['leaderboard__grade']}>{student.grade}</div>
                     </div>
                 </div>
-                <div className="leaderboard__points">
-                    <strong>{student.points}</strong> <span className="unit">PTS</span>
+                <div className={styles['leaderboard__points']}>
+                    <strong>{student.points}</strong> <span className={styles.unit}>PTS</span>
                 </div>
-                <div className="leaderboard__prize-icon">
-                    <div className={`icon-circle ${student.rank === 1 ? 'icon-circle--gold' : ''}`}>
+                <div className={styles['leaderboard__prize-icon']}>
+                    <div className={`${styles['icon-circle']} ${student.rank === 1 ? styles['icon-circle--gold'] : ''}`}>
                     {student.prize}
                     </div>
                 </div>
@@ -65,19 +65,19 @@ const QuizResults = () => {
         </div>
 
         {/* Stats Grid */}
-        <footer className="stats-grid">
-            <div className="stat-card">
-            <div className="stat-card__icon stat-card__icon--orange">📈</div>
-            <div className="stat-card__info">
-                <span className="stat-card__label">PUNTAJE PROMEDIO</span>
-                <div className="stat-card__value">1,850 <span className="unit">PTS</span></div>
+        <footer className={styles['stats-grid']}>
+            <div className={styles['stat-card']}>
+            <div className={`${styles['stat-card__icon']} ${styles['stat-card__icon--orange']}`}>📈</div>
+            <div className={styles['stat-card__info']}>
+                <span className={styles['stat-card__label']}>PUNTAJE PROMEDIO</span>
+                <div className={styles['stat-card__value']}>1,850 <span className={styles.unit}>PTS</span></div>
             </div>
             </div>
-            <div className="stat-card">
-            <div className="stat-card__icon stat-card__icon--green">👥</div>
-            <div className="stat-card__info">
-                <span className="stat-card__label">TOTAL PARTICIPANTES</span>
-                <div className="stat-card__value">42 <span className="unit">ALUMNOS</span></div>
+            <div className={styles['stat-card']}>
+            <div className={`${styles['stat-card__icon']} ${styles['stat-card__icon--green']}`}>👥</div>
+            <div className={styles['stat-card__info']}>
+                <span className={styles['stat-card__label']}>TOTAL PARTICIPANTES</span>
+                <div className={styles['stat-card__value']}>42 <span className={styles.unit}>ALUMNOS</span></div>
             </div>
             </div>
         </footer>

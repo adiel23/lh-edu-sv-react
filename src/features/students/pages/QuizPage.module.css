@@ -19,9 +19,12 @@
 @import '../../colors.css';
 
 /* Base Container - Adaptable a pantallas de tablet */
+.container {
+  background: linear-gradient(135deg, hsl(252, 53%, 76%) 0%, #8e7cc3 100%);
+}
+
 .quiz {
   font-family: var(--font-main);
-  background: linear-gradient(135deg, #b0a3e3 0%, #8e7cc3 100%);
   min-height: 100vh;
   padding: 24px;
   display: flex;

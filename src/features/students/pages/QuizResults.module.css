@@ -87,6 +87,12 @@ body {
   padding: 15px 20px;
 }
 
+.leaderboard__row--me {
+  background-color: #eef2ff;
+  border-left: 3px solid #6366f1;
+  padding-left: 17px;
+}
+
 .leaderboard__rank { font-weight: bold; color: #ff9a00; font-size: 1.2rem; }
 .leaderboard__student { display: flex; align-items: center; gap: 10px; }
 .leaderboard__avatar {

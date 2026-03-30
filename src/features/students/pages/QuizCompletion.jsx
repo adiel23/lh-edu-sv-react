@@ -2,15 +2,20 @@ import React from 'react';
 import styles from './QuizCompletion.module.css';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import { useDemo } from '../../../context/useDemo';
 
 const QuizCompletion = () => {
     const navigate = useNavigate();
+    const { endQuiz } = useDemo();
 
-    (function() {
-        setTimeout(() => {
+    React.useEffect(() => {
+        endQuiz();
+        const timer = setTimeout(() => {
             navigate('/students/quiz-results');
         }, 2000);
-    })();
+        return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
   return (
     <div className={styles.container}>
@@ -25,7 +30,6 @@ const QuizCompletion = () => {
             <div className={styles['quiz-screen__reward-visual']}>
             <div className={styles['quiz-screen__circle-outer']}>
                 <div className={styles['quiz-screen__circle-inner']}>
-                {/* <span className={styles['quiz-screen__star']}>⭐</span> */}
                     <svg
                         className={styles['quiz-screen__star']}
                         width="140"
@@ -48,18 +52,13 @@ const QuizCompletion = () => {
 
             <h2 className={styles['quiz-screen__main-heading']}>¡PRUEBA COMPLETADA!</h2>
             <p className={styles['quiz-screen__instruction']}>
-            Espera a que el profesor cierre la sesión para ver los resultados.
+            Preparando tus resultados...
             </p>
-
-            {/* <div className="quiz-screen__points-badge">
-            <span className="quiz-screen__currency-symbol">$</span>
-            <span className="quiz-screen__amount">200</span>
-            </div> */}
         </main>
 
         {/* Footer / User Icon */}
         <footer className={styles['quiz-screen__footer']}>
-            <div className={styles['quiz-screen__user-avatar']}>N</div>
+            <div className={styles['quiz-screen__user-avatar']}>A</div>
         </footer>
         </div>
     </div>

@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './QuizResults.module.css';
 import Header from '../components/Header';
+import { useDemo } from '../../../context/useDemo';
 
 const QuizResults = () => {
-  const students = [
-    { rank: 1, name: 'Alex Rivers', grade: '6TO GRADO', points: '2,500', prize: '🏆' },
-    { rank: 2, name: 'Sam Smith', grade: '6TO GRADO', points: '1,850', prize: '⭐' },
-    { rank: 3, name: 'Jordan Lee', grade: '6TO GRADO', points: '1,200', prize: '⭐' },
-  ];
+  const { getResults } = useDemo();
+  const results = getResults();
+  const winner = results[0];
 
   return (
     <div className={styles.container}>
@@ -21,7 +20,7 @@ const QuizResults = () => {
         <section className={styles['hero-card']}>
             <div className={styles['hero-card__content']}>
             <span className={styles['hero-card__badge']}>MEJOR DESEMPEÑO</span>
-            <h2 className={styles['hero-card__main-title']}>Alex Rivers es el campeón!</h2>
+            <h2 className={styles['hero-card__main-title']}>{winner.name} es el campeón!</h2>
             <p className={styles['hero-card__description']}>
                 Ha ganado el Trofeo Bitcoin por su excelente participación y puntuación perfecta.
             </p>
@@ -34,29 +33,32 @@ const QuizResults = () => {
             <div className={styles['leaderboard__header']}>
             <span>RANGO</span>
             <span>ESTUDIANTE</span>
-            <span>PUNTAJE</span>
+            <span>ACIERTOS</span>
             <span>PREMIO</span>
             </div>
             
             <div className={styles['leaderboard__body']}>
-            {students.map((student) => (
-                <div key={student.rank} className={`${styles['leaderboard__row']} ${student.rank === 1 ? styles['leaderboard__row--highlighted'] : ''}`}>
+            {results.map((student, index) => (
+                <div
+                  key={student.id}
+                  className={`${styles['leaderboard__row']} ${index === 0 ? styles['leaderboard__row--highlighted'] : ''} ${student.isMe ? styles['leaderboard__row--me'] : ''}`}
+                >
                 <div className={styles['leaderboard__rank']}>
-                    {student.rank} {student.rank === 1 && <span className={styles.icon}>🎗️</span>}
+                    {index + 1} {index === 0 && <span className={styles.icon}>🎗️</span>}
                 </div>
                 <div className={styles['leaderboard__student']}>
                     <div className={styles['leaderboard__avatar']}>{student.name.charAt(0)}</div>
                     <div>
-                    <div className={styles['leaderboard__name']}>{student.name}</div>
-                    <div className={styles['leaderboard__grade']}>{student.grade}</div>
+                    <div className={styles['leaderboard__name']}>{student.name}{student.isMe && ' (Tú)'}</div>
+                    <div className={styles['leaderboard__grade']}>6TO GRADO</div>
                     </div>
                 </div>
                 <div className={styles['leaderboard__points']}>
-                    <strong>{student.points}</strong> <span className={styles.unit}>PTS</span>
+                    <strong>{student.correctAnswers}/{student.totalQuestions}</strong> <span className={styles.unit}>ACIERTOS</span>
                 </div>
                 <div className={styles['leaderboard__prize-icon']}>
-                    <div className={`${styles['icon-circle']} ${student.rank === 1 ? styles['icon-circle--gold'] : ''}`}>
-                    {student.prize}
+                    <div className={`${styles['icon-circle']} ${index === 0 ? styles['icon-circle--gold'] : ''}`}>
+                    {index === 0 ? '🏆' : '⭐'}
                     </div>
                 </div>
                 </div>
@@ -69,15 +71,17 @@ const QuizResults = () => {
             <div className={styles['stat-card']}>
             <div className={`${styles['stat-card__icon']} ${styles['stat-card__icon--orange']}`}>📈</div>
             <div className={styles['stat-card__info']}>
-                <span className={styles['stat-card__label']}>PUNTAJE PROMEDIO</span>
-                <div className={styles['stat-card__value']}>1,850 <span className={styles.unit}>PTS</span></div>
+                <span className={styles['stat-card__label']}>ACIERTOS PROMEDIO</span>
+                <div className={styles['stat-card__value']}>
+                  {Math.round(results.reduce((s, r) => s + r.correctAnswers, 0) / results.length)} <span className={styles.unit}>/ {results[0]?.totalQuestions}</span>
+                </div>
             </div>
             </div>
             <div className={styles['stat-card']}>
             <div className={`${styles['stat-card__icon']} ${styles['stat-card__icon--green']}`}>👥</div>
             <div className={styles['stat-card__info']}>
                 <span className={styles['stat-card__label']}>TOTAL PARTICIPANTES</span>
-                <div className={styles['stat-card__value']}>42 <span className={styles.unit}>ALUMNOS</span></div>
+                <div className={styles['stat-card__value']}>{results.length} <span className={styles.unit}>ALUMNOS</span></div>
             </div>
             </div>
         </footer>

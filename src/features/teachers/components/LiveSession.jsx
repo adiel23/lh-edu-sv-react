@@ -1,37 +1,49 @@
 import React from 'react';
 import styles from './LiveSession.module.css';
 import { useNavigate } from 'react-router-dom';
+import { DEMO_LOBBY_STUDENTS } from '../../../data/demoData';
 
 function LiveSession() {
     const navigate = useNavigate();
-    const totalSegundos = 10;
+    const totalSegundos = 30;
     const [segundos, setSegundos] = React.useState(totalSegundos);
 
-    const students = [
-        { id: 1, name: 'Mateo G.', status: 'completed', progress: 100 },
-        { id: 2, name: 'Lucía F.', status: 'completed', progress: 100 },
-        { id: 3, name: 'Santi R.', status: 'in-progress', progress: 68 },
-        { id: 4, name: 'Emma V.', status: 'completed', progress: 100 },
-        { id: 5, name: 'Nico P.', status: 'in-progress', progress: 42 }
-    ];
+    // Simulate students completing the quiz gradually
+    const [completedIds, setCompletedIds] = React.useState(new Set());
 
-    const completedCount = students.filter((student) => student.status === 'completed').length;
-    const pendingCount = students.length - completedCount;
-    const completionPercent = Math.round((completedCount / students.length) * 100);
-    const timerPercent = Math.round((segundos / totalSegundos) * 100);
+    React.useEffect(() => {
+        // Students complete at staggered intervals within the session time
+        const completionDelays = [4000, 8000, 14000, 20000, 26000];
+        const timers = DEMO_LOBBY_STUDENTS.map((s, i) =>
+            setTimeout(() => {
+                setCompletedIds((prev) => new Set([...prev, s.id]));
+            }, completionDelays[i] ?? 5000)
+        );
+        return () => timers.forEach(clearTimeout);
+    }, []);
 
     React.useEffect(() => {
         if (segundos <= 0) {
             navigate('/teachers/dashboard/sessions/result', { replace: true });
             return;
         }
-
         const motor = setInterval(() => {
-            setSegundos(s => s - 1);
+            setSegundos((s) => s - 1);
         }, 1000);
-
         return () => clearInterval(motor);
     }, [navigate, segundos]);
+
+    const students = DEMO_LOBBY_STUDENTS.map((s) => ({
+        id: s.id,
+        name: s.name,
+        status: completedIds.has(s.id) ? 'completed' : 'in-progress',
+        progress: completedIds.has(s.id) ? 100 : Math.min(90, Math.round(((totalSegundos - segundos) / totalSegundos) * 100)),
+    }));
+
+    const completedCount = students.filter((s) => s.status === 'completed').length;
+    const pendingCount = students.length - completedCount;
+    const completionPercent = Math.round((completedCount / students.length) * 100);
+    const timerPercent = Math.round((segundos / totalSegundos) * 100);
 
     return (
         <div className={styles.container}>

@@ -1,36 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Lobby.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useDemo } from '../../../context/useDemo';
+import { DEMO_LOBBY_STUDENTS } from '../../../data/demoData';
 
 const Lobby = () => {
-  const accessCode = ['8', '2', '3', '4', '1', '9'];
-
-  const questions = [
-    { id: 1, text: '¿Qué es Bitcoin?' },
-    { id: 2, text: '¿Quién creó Bitcoin?' }
-  ];
-
-  const students = [
-    { id: 1, name: 'Mateo G.', status: 'ready' },
-    { id: 2, name: 'Lucía F.', status: 'ready' },
-    { id: 3, name: 'Santi R.', status: 'absent' },
-    { id: 4, name: 'Emma V.', status: 'ready' },
-    { id: 5, name: 'Nico P.', status: 'absent' },
-    { id: 6, name: 'Valen M.', status: 'ready' },
-    { id: 7, name: 'Sofía S.', status: 'absent' },
-    { id: 8, name: 'Leo T.', status: 'ready' }
-  ];
-
-  const readyCount = students.filter(s => s.status === 'ready').length;
-
+  const { sessionPin, questions, startQuiz } = useDemo();
   const navigate = useNavigate();
+
+  // Track which simulated students have "arrived"
+  const [arrivedIds, setArrivedIds] = useState(new Set());
+
+  // Simulate students joining one by one using their joinDelay
+  useEffect(() => {
+    const timers = DEMO_LOBBY_STUDENTS.map((s) =>
+      setTimeout(() => {
+        setArrivedIds((prev) => new Set([...prev, s.id]));
+      }, s.joinDelay)
+    );
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  const students = DEMO_LOBBY_STUDENTS.map((s) => ({
+    ...s,
+    status: arrivedIds.has(s.id) ? 'ready' : 'absent',
+  }));
+
+  const readyCount = students.filter((s) => s.status === 'ready').length;
+
+  // Display PIN as individual digits
+  const pin = sessionPin ? sessionPin.split('') : ['?', '?', '?', '?', '?', '?'];
+
+  const handleStartQuiz = () => {
+    startQuiz();
+    navigate('/teachers/dashboard/sessions/live');
+  };
 
   return (
     <div className={styles.lobby}>
       {/* Cabecera superior */}
       <header className={styles.lobby__topbar}>
         <div className={styles['lobby__topbar-left']}>
-          <button className={styles['lobby__back-btn']}>
+          <button className={styles['lobby__back-btn']} onClick={() => navigate(-1)}>
             <span>←</span>
           </button>
           <h2 className={styles.lobby__title}>Configuración de Sesión</h2>
@@ -45,7 +56,7 @@ const Lobby = () => {
       <section className={styles['lobby__access-section']}>
         <div className={styles['lobby__access-badge']}>CÓDIGO DE ACCESO</div>
         <div className={styles['lobby__access-code']}>
-          {accessCode.map((digit, index) => (
+          {pin.map((digit, index) => (
             <div key={index} className={styles.lobby__digit}>
               {digit}
             </div>
@@ -65,7 +76,7 @@ const Lobby = () => {
             {questions.map((q) => (
               <div key={q.id} className={styles['lobby__question-item']}>
                 <span className={styles['lobby__question-number']}>#{q.id}</span>
-                <p className={styles['lobby__question-text']}>{q.text}</p>
+                <p className={styles['lobby__question-text']}>{q.pregunta}</p>
               </div>
             ))}
           </div>
@@ -99,7 +110,7 @@ const Lobby = () => {
                 <div className={styles['lobby__student-info']}>
                   <p className={styles['lobby__student-name']}>{student.name}</p>
                   <p className={styles['lobby__student-status']}>
-                    {student.status === 'ready' ? '¡LISTO!' : 'AUSENTE'}
+                    {student.status === 'ready' ? '¡LISTO!' : 'ENTRANDO...'}
                   </p>
                 </div>
               </div>
@@ -114,7 +125,7 @@ const Lobby = () => {
 
       {/* Barra de Acciones Fija al Bottom */}
       <footer className={styles.lobby__footer}>
-        <button className={styles['lobby__btn-primary']} onClick={() => navigate('/teachers/dashboard/sessions/live')}>
+        <button className={styles['lobby__btn-primary']} onClick={handleStartQuiz}>
           ¡EMPEZAR QUIZ! <span style={{ marginLeft: '8px' }}>▶</span>
         </button>
       </footer>

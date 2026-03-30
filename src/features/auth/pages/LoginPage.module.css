@@ -1,0 +1,190 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-lighthodler);
+}
+
+.login_main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  padding-top: 5rem;
+}
+
+.login_card {
+  width: 100%;
+  max-width: 800px;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 2rem;
+  padding: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.login_title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.roles_container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .roles_container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+.role_section {
+  background-color: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  border: 4px solid #ffffff;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.role_section:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+.role_icon_bg {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.role_icon_bg.teacher {
+  background-color: #fdf2f8; /* pink-50 */
+  color: #db2777; /* pink-600 */
+}
+
+.role_icon_bg.student {
+  background-color: #eff6ff; /* blue-50 */
+  color: var(--color-orange); 
+}
+
+.role_title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.role_subtitle {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 600;
+  flex: 1;
+}
+
+.action_group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn_primary, .btn_secondary {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn_primary {
+  background-color: var(--color-orange);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 14px rgba(255, 140, 0, 0.3);
+}
+
+.btn_primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+}
+
+.btn_primary.teacher_btn {
+  background-color: #db2777;
+  box-shadow: 0 4px 14px rgba(219, 39, 119, 0.3);
+}
+
+.btn_primary.teacher_btn:hover {
+  box-shadow: 0 6px 20px rgba(219, 39, 119, 0.4);
+}
+
+.btn_secondary {
+  background-color: white;
+  color: #475569;
+  border: 2px solid #e2e8f0;
+}
+
+.btn_secondary:hover {
+  border-color: #cbd5e1;
+  background-color: #f8fafc;
+}
+
+.google_icon {
+  width: 20px;
+  height: 20px;
+}
+
+.toast_container {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #22c55e;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+  z-index: 50;
+  animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideDown {
+  from {
+    top: -3rem;
+    opacity: 0;
+  }
+  to {
+    top: 2rem;
+    opacity: 1;
+  }
+}

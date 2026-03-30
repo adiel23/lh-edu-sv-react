@@ -1,6 +1,9 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import DemoProvider from './context/DemoContext';
 import HomePage from './features/home/pages/HomePage';
+import LoginPage from './features/auth/pages/LoginPage';
 import EnterSessionPage from './features/students/pages/EnterSessionPage';
+import OnboardingPage from './features/students/pages/OnboardingPage';
 import DashboardPage from './features/teachers/pages/DashboardPage';
 import QuizPage from './features/students/pages/QuizPage';
 import QuizCompletion from './features/students/pages/QuizCompletion';
@@ -13,10 +16,13 @@ import TeacherQuizResults from './features/teachers/components/QuizResults';
 
 function App() {
   return (
+    <DemoProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage/>} />
+        <Route path="/login" element={<LoginPage/>} />
         <Route path="/students/enter-session" element={<EnterSessionPage/>} />
+        <Route path="/students/onboarding" element={<OnboardingPage/>} />
         <Route path="/students/quiz" element={<QuizPage/>} />
         <Route path="/students/quiz-completion" element={<QuizCompletion/>} />
         <Route path="/students/quiz-results" element={<StudentQuizResults/>} />
@@ -29,6 +35,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </DemoProvider>
   );
 }
 

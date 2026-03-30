@@ -1,17 +1,19 @@
 import React from 'react';
 import styles from './QuizResults.module.css';
+import { useDemo } from '../../../context/useDemo';
+import { DEMO_SIMULATED_STUDENTS } from '../../../data/demoData';
 
 function QuizResults() {
-	const students = [
-		{ id: 1, name: 'Mateo G.', score: 95, correctAnswers: 19, totalQuestions: 20, time: '03:21' },
-		{ id: 2, name: 'Lucía F.', score: 88, correctAnswers: 17, totalQuestions: 20, time: '03:42' },
-		{ id: 3, name: 'Emma V.', score: 84, correctAnswers: 16, totalQuestions: 20, time: '03:58' },
-		{ id: 4, name: 'Santi R.', score: 73, correctAnswers: 14, totalQuestions: 20, time: '04:14' },
-		{ id: 5, name: 'Nico P.', score: 67, correctAnswers: 13, totalQuestions: 20, time: '04:36' }
-	];
+	const { getResults, sessionPhase } = useDemo();
 
-	const sortedStudents = [...students].sort((a, b) => b.score - a.score);
-	const winner = sortedStudents[0];
+	// If the student completed the quiz use real results; otherwise show simulated data
+	const students = sessionPhase === 'completed'
+		? getResults()
+		: DEMO_SIMULATED_STUDENTS
+			.map((s) => ({ ...s, isMe: false }))
+			.sort((a, b) => b.correctAnswers - a.correctAnswers);
+
+	const winner = students[0];
 
 	return (
 		<div className={styles.container}>
@@ -27,10 +29,6 @@ function QuizResults() {
 						</div>
 					</div>
 					<div className={styles['hero__winner-stats']}>
-						<div className={styles['hero__stat']}>
-							<span className={styles['hero__stat-label']}>Puntaje</span>
-							<strong className={styles['hero__stat-value']}>{winner.score}</strong>
-						</div>
 						<div className={styles['hero__stat']}>
 							<span className={styles['hero__stat-label']}>Aciertos</span>
 							<strong className={styles['hero__stat-value']}>
@@ -48,7 +46,7 @@ function QuizResults() {
 			<section className={styles.results}>
 				<div className={styles['results__header']}>
 					<h3 className={styles['results__title']}>Tabla de resultados</h3>
-					<span className={styles['results__subtitle']}>{sortedStudents.length} estudiantes evaluados</span>
+					<span className={styles['results__subtitle']}>{students.length} estudiantes evaluados</span>
 				</div>
 
 				<table className={styles['results__table']}>
@@ -56,13 +54,12 @@ function QuizResults() {
 						<tr>
 							<th>Posición</th>
 							<th>Estudiante</th>
-							<th>Puntaje</th>
 							<th>Aciertos</th>
 							<th>Tiempo</th>
 						</tr>
 					</thead>
 					<tbody>
-						{sortedStudents.map((student, index) => (
+						{students.map((student, index) => (
 							<tr
 								key={student.id}
 								className={index === 0 ? `${styles['results__row']} ${styles['results__row--winner']}` : styles['results__row']}
@@ -75,10 +72,9 @@ function QuizResults() {
 								<td>
 									<div className={styles['results__student']}>
 										<span className={styles['results__avatar']}>{student.name.charAt(0)}</span>
-										<span>{student.name}</span>
+										<span>{student.name}{student.isMe ? ' ⭐' : ''}</span>
 									</div>
 								</td>
-								<td>{student.score}</td>
 								<td>{student.correctAnswers}/{student.totalQuestions}</td>
 								<td>{student.time}</td>
 							</tr>

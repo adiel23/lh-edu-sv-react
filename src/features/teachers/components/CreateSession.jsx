@@ -2,9 +2,17 @@ import React from 'react';
 
 import styles from './CreateSession.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useDemo } from '../../../context/useDemo';
 
 const CreateSession = () => {
   const navigate = useNavigate();
+  const { createSession } = useDemo();
+
+  const handleGeneratePin = () => {
+    createSession();
+    navigate('/teachers/dashboard/sessions/lobby');
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.session}>
@@ -25,6 +33,7 @@ const CreateSession = () => {
             <option value="3er">3er Grado</option>
             <option value="4to">4to Grado</option>
             <option value="5to">5to Grado</option>
+            <option value="6to">6to Grado</option>
           </select>
           <span className={styles.session__sparkle_icon}>✨</span>
         </div>
@@ -50,7 +59,7 @@ const CreateSession = () => {
         </div>
       </div>
 
-      <button className={styles.session__submit_btn} onClick={() => navigate('/teachers/dashboard/sessions/lobby')}>
+      <button className={styles.session__submit_btn} onClick={handleGeneratePin}>
         <span className={styles.session__btn_icon}>🔑</span>
         GENERAR PIN DE ACCESO
       </button>

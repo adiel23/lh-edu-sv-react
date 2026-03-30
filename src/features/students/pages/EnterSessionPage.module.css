@@ -141,6 +141,23 @@ body {
   margin-bottom: 2rem;
 }
 
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-6px); }
+  80%       { transform: translateX(6px); }
+}
+
+.enter-session-page__pin-display--shake {
+  animation: shake 0.5s ease;
+}
+
+.enter-session-page__pin-display--shake .enter-session-page__pin-slot {
+  border-color: var(--color-red);
+  color: var(--color-red);
+}
+
 .enter-session-page__pin-slot {
   width: 40px;
   height: 50px;

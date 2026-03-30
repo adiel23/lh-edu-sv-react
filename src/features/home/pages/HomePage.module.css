@@ -1,6 +1,6 @@
-/* Importar una fuente limpia similar a la de la imagen */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+/* Fonts imported globally in index.css */
 @import '../../colors.css';
+
 
 * {
   box-sizing: border-box;
@@ -123,32 +123,40 @@ body {
   margin-bottom: 3.5rem;
 }
 
-/* --- Botón Google --- */
-.home-page__google-login-btn {
+/* --- CTA Group --- */
+.home-page__cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* --- Botón Modo Demo (único) --- */
+.home-page__demo-btn {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background-color: white;
-  color: #1e293b;
-  font-size: 1.25rem;
-  font-weight: 600;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--color-orange);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
   padding: 1rem 2.5rem;
-  border: 4px solid #f1f5f9;
+  border: none;
   border-radius: 16px;
   cursor: pointer;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  letter-spacing: 0.5px;
 }
 
-.home-page__google-login-btn:hover {
+.home-page__demo-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 28px rgba(255, 140, 0, 0.45);
 }
 
-.home-page__google-icon {
-  width: 28px;
-  height: 28px;
-}
 
 /* --- Footer Features --- */
 .home-page__features-container {

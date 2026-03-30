@@ -2,14 +2,24 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './EnterSessionPage.module.css';
 import Header from '../components/Header';
+import { useDemo } from '../../../context/useDemo';
 
 function EnterSessionPage() {
   const [pin, setPin] = useState('');
+  const [shake, setShake] = useState(false);
   const navigate = useNavigate();
+  const { joinSession } = useDemo();
 
   const handleNumberClick = (number) => {
     if (pin.length < 6) {
-      setPin(pin + number);
+      const newPin = pin + number;
+      setPin(newPin);
+      if (newPin.length === 6) {
+        // En el demo, entramos automáticamente.
+        if (joinSession(newPin)) {
+          navigate('/students/onboarding');
+        }
+      }
     }
   };
 
@@ -20,8 +30,17 @@ function EnterSessionPage() {
   const isPinComplete = pin.length === 6;
 
   const handleEnterClass = () => {
-    if (isPinComplete) {
-      navigate('/students/quiz');
+    if (!isPinComplete) return;
+
+    if (joinSession(pin)) {
+      navigate('/students/onboarding');
+    } else {
+      // Wrong PIN — trigger shake animation
+      setShake(true);
+      setTimeout(() => {
+        setShake(false);
+        setPin('');
+      }, 600);
     }
   };
 
@@ -54,7 +73,7 @@ function EnterSessionPage() {
         </div>
 
         {/* Display del PIN */}
-        <div className={styles['enter-session-page__pin-display']}>
+        <div className={`${styles['enter-session-page__pin-display']} ${shake ? styles['enter-session-page__pin-display--shake'] : ''}`}>
           {[0, 1, 2, 3, 4, 5].map((index) => (
             <div key={index} className={`${styles['enter-session-page__pin-slot']} ${pin[index] ? styles['enter-session-page__pin-slot--filled'] : ''}`}>
               {pin[index] || ''}

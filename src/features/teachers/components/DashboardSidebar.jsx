@@ -1,6 +1,6 @@
 import React from 'react';
 import './DashboardSidebar.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   FaGraduationCap,
   FaHouse,
@@ -11,6 +11,18 @@ import {
 } from 'react-icons/fa6';
 
 function DashboardSidebar() {
+    const location = useLocation();
+
+    const isActive = (path) => {
+        if (path === '/teachers/dashboard' && location.pathname === '/teachers/dashboard') {
+            return true;
+        }
+        if (path !== '/teachers/dashboard' && location.pathname.startsWith(path)) {
+            return true;
+        }
+        return false;
+    };
+
     return <aside className="sidebar">
         <div className="sidebar__logo-container">
           <div className="sidebar__logo-icon">
@@ -24,31 +36,31 @@ function DashboardSidebar() {
 
         <nav className="sidebar__nav">
           <ul className="sidebar__list">
-            <li className="sidebar__item sidebar__item--active">
+            <li className={`sidebar__item ${isActive('/teachers/dashboard') && location.pathname === '/teachers/dashboard' ? 'sidebar__item--active' : ''}`}>
               <Link to="/teachers/dashboard" className="sidebar__link">
                 <FaHouse />
                 <span>Inicio</span>
               </Link>
             </li>
-            <li className="sidebar__item">
+            <li className={`sidebar__item ${isActive('/teachers/dashboard/sessions') ? 'sidebar__item--active' : ''}`}>
               <Link to="/teachers/dashboard/sessions/new" className="sidebar__link">
                 <FaChalkboardUser />
                 <span>Sesiones</span>
               </Link>
             </li>
-            <li className="sidebar__item">
+            <li className={`sidebar__item ${isActive('/teachers/dashboard/students') ? 'sidebar__item--active' : ''}`}>
               <Link to="/teachers/dashboard/students" className="sidebar__link">
                 <FaUsers />
                 <span>Estudiantes</span>
               </Link>
             </li>
-            <li className="sidebar__item">
+            <li className={`sidebar__item ${isActive('/teachers/dashboard/reports') ? 'sidebar__item--active' : ''}`}>
               <Link to="/teachers/dashboard/reports" className="sidebar__link">
                 <FaChartColumn />
                 <span>Reportes</span>
               </Link>
             </li>
-            <li className="sidebar__item">
+            <li className={`sidebar__item ${isActive('/teachers/dashboard/settings') ? 'sidebar__item--active' : ''}`}>
               <Link to="/teachers/dashboard/settings" className="sidebar__link">
                 <FaGear />
                 <span>Configuración</span>

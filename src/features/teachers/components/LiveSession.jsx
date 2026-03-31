@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './LiveSession.module.css';
 import { useNavigate } from 'react-router-dom';
 import { DEMO_LOBBY_STUDENTS } from '../../../data/demoData';
+import { AVATARS } from '../../students/pages/OnboardingPage';
 
 function LiveSession() {
     const navigate = useNavigate();
@@ -121,11 +122,15 @@ function LiveSession() {
                             </tr>
                         </thead>
                         <tbody className={styles['table__body']}>
-                            {students.map((student) => (
+                            {students.map((student, index) => {
+                                const avatarObj = AVATARS[index % AVATARS.length];
+                                return (
                                 <tr key={student.id} className={styles['table__row']}>
                                     <td className={styles['table__cell']}>
                                         <div className={styles['table__student']}>
-                                            <span className={styles['table__avatar']}>{student.name.charAt(0)}</span>
+                                            <div className={styles['table__avatar']}>
+                                                <img src={avatarObj.image} alt={avatarObj.id} className={styles['table__avatar-img']} />
+                                            </div>
                                             <span className={styles['table__name']}>{student.name}</span>
                                         </div>
                                     </td>
@@ -156,7 +161,7 @@ function LiveSession() {
                                         </div>
                                     </td>
                                 </tr>
-                            ))}
+                            )})}
                         </tbody>
                     </table>
                 </section>

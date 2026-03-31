@@ -4,7 +4,7 @@ import { LuKey, LuSmile, LuRocket, LuCheck, LuArrowLeft } from 'react-icons/lu';
 import styles from './OnboardingPage.module.css';
 import Header from '../components/Header';
 
-const AVATARS = [
+export const AVATARS = [
   {
     id: "explorer",
     name: "Exploradora",
@@ -73,7 +73,7 @@ function OnboardingPage() {
   const handleSubmit = () => {
     setIsLoading(true);
     setTimeout(() => {
-      navigate('/students/quiz');
+      navigate('/students/quiz', { state: { avatarId: selectedAvatar } });
     }, 800);
   };
 

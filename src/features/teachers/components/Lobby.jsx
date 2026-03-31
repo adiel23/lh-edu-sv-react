@@ -3,6 +3,7 @@ import styles from './Lobby.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useDemo } from '../../../context/useDemo';
 import { DEMO_LOBBY_STUDENTS } from '../../../data/demoData';
+import { AVATARS } from '../../students/pages/OnboardingPage';
 
 const Lobby = () => {
   const { sessionPin, questions, startQuiz } = useDemo();
@@ -95,7 +96,9 @@ const Lobby = () => {
           </div>
           
           <div className={styles['lobby__students-grid']}>
-            {students.map((student) => (
+            {students.map((student, index) => {
+              const avatarObj = AVATARS[index % AVATARS.length];
+              return (
               <div 
                 key={student.id} 
                 className={`${styles['lobby__student-card']} ${
@@ -105,7 +108,9 @@ const Lobby = () => {
                 }`}
               >
                 <div className={styles['lobby__student-avatar']}>
-                  {student.status === 'ready' ? '✨' : '👤'}
+                  {student.status === 'ready' ? (
+                     <img src={avatarObj.image} alt={avatarObj.id} className={styles['lobby__student-img']} />
+                  ) : '👤'}
                 </div>
                 <div className={styles['lobby__student-info']}>
                   <p className={styles['lobby__student-name']}>{student.name}</p>
@@ -114,7 +119,7 @@ const Lobby = () => {
                   </p>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
 
           <p className={styles['lobby__waiting-message']}>

@@ -22,3 +22,22 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Vite
+vite.config.js.timestamp-*
+
+# Playwright / MCP
+.playwright-mcp/
+test-results/
+
+# Agent & Demo Assets
+*.png
+*.jpg
+*.jpeg
+*.gif
+.gemini/

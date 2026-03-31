@@ -1,66 +1,96 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './QuizCompletion.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import { useDemo } from '../../../context/useDemo';
+import { AVATARS } from './OnboardingPage';
+
+const Confetti = () => {
+    const pieces = Array.from({ length: 40 }).map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 2}s`,
+      duration: `${2 + Math.random() * 2}s`,
+      color: `hsl(${Math.random() * 360}, 80%, 60%)`,
+    }));
+  
+    return (
+      <div className={styles.confettiContainer}>
+        {pieces.map((p) => (
+          <div
+            key={p.id}
+            className={styles.confettiPiece}
+            style={{
+              left: p.left,
+              animationDelay: p.delay,
+              animationDuration: p.duration,
+              backgroundColor: p.color,
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
 
 const QuizCompletion = () => {
     const navigate = useNavigate();
-    const { endQuiz } = useDemo();
+    const location = useLocation();
+    const { endQuiz, getResults } = useDemo();
 
-    React.useEffect(() => {
+    const avatarId = location.state?.avatarId || 'hodler';
+    const selectedAvatarObj = AVATARS.find(a => a.id === avatarId) || AVATARS[3];
+
+    // Get final score
+    const results = getResults();
+    const myResult = results.find(r => r.isMe) || { correctAnswers: 0, totalQuestions: 5 };
+
+    useEffect(() => {
         endQuiz();
-        const timer = setTimeout(() => {
-            navigate('/students/quiz-results');
-        }, 2000);
-        return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
   return (
     <div className={styles.container}>
-        <Header/>
-        <div className={styles['quiz-screen']}>
-        {/* Main Content */}
-        <main className={styles['quiz-screen__content']}>
-            <div className={styles['quiz-screen__alert']}>
-            <span className={styles['quiz-screen__alert-icon']}>✨ ¡Excelente!</span>
-            </div>
-
-            <div className={styles['quiz-screen__reward-visual']}>
-            <div className={styles['quiz-screen__circle-outer']}>
-                <div className={styles['quiz-screen__circle-inner']}>
-                    <svg
-                        className={styles['quiz-screen__star']}
-                        width="140"
-                        height="140"
-                        viewBox="0 0 80 80"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        >
-                        <polygon
-                            points="40,8 48.09,29.26 70,30.91 52.18,45.18 58.18,67.09 40,55.45 21.82,67.09 27.82,45.18 10,30.91 31.91,29.26"
-                            fill="currentColor"
-                            stroke="#B8860B"
-                            strokeWidth="3"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
+        <Confetti />
+        <Header />
+        
+        <main className={styles['victory-main']}>
+            <div className={styles['victory-card']}>
+                
+                <div className={styles['victory-avatar-wrapper']}>
+                    <div className={styles['victory-avatar']} style={{ backgroundColor: selectedAvatarObj.color }}>
+                        <img src={selectedAvatarObj.image} alt="Tu Avatar" />
+                    </div>
                 </div>
-            </div>
-            </div>
 
-            <h2 className={styles['quiz-screen__main-heading']}>¡PRUEBA COMPLETADA!</h2>
-            <p className={styles['quiz-screen__instruction']}>
-            Preparando tus resultados...
-            </p>
+                <div className={styles['victory-badge']}>
+                    <span className={styles['victory-badge-icon']}>✨</span>
+                    ¡PRUEBA COMPLETADA!
+                </div>
+
+                <h1 className={styles['victory-title']}>¡Excelente trabajo!</h1>
+                
+                <div className={styles['score-display']}>
+                    <div className={styles['score-numbers']}>
+                        <span className={styles['score-number']}>{myResult.correctAnswers}</span>
+                        <span className={styles['score-divider']}>/</span>
+                        <span className={styles['score-total']}>{myResult.totalQuestions}</span>
+                    </div>
+                    <div className={styles['score-label']}>ACIERTOS</div>
+                </div>
+
+                <p className={styles['victory-message']}>
+                    Has completado el reto en Modo Demo. Sumaste Sats para tu conocimiento.
+                </p>
+
+                <button 
+                    className={styles['victory-btn']}
+                    onClick={() => navigate('/students/quiz-results', { state: { avatarId } })}
+                >
+                    VER CLASIFICACIÓN 🏆
+                </button>
+            </div>
         </main>
-
-        {/* Footer / User Icon */}
-        <footer className={styles['quiz-screen__footer']}>
-            <div className={styles['quiz-screen__user-avatar']}>A</div>
-        </footer>
-        </div>
     </div>
   );
 };

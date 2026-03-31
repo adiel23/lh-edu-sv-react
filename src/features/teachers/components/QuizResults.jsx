@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './QuizResults.module.css';
 import { useDemo } from '../../../context/useDemo';
 import { DEMO_SIMULATED_STUDENTS } from '../../../data/demoData';
+import { AVATARS } from '../../students/pages/OnboardingPage';
 
 function QuizResults() {
 	const { getResults, sessionPhase } = useDemo();
@@ -22,7 +23,10 @@ function QuizResults() {
 				<h1 className={styles['hero__title']}>Ganador del Quiz</h1>
 				<div className={styles['hero__winner-card']}>
 					<div className={styles['hero__winner-main']}>
-						<span className={styles['hero__crown']} aria-hidden="true">👑</span>
+						<div className={styles['hero__winner-avatar']}>
+							<img src={AVATARS[0].image} alt={AVATARS[0].id} className={styles['hero__winner-img']} />
+							<span className={styles['hero__crown']} aria-hidden="true">👑</span>
+						</div>
 						<div>
 							<p className={styles['hero__winner-label']}>Primer lugar</p>
 							<h2 className={styles['hero__winner-name']}>{winner.name}</h2>
@@ -59,10 +63,13 @@ function QuizResults() {
 						</tr>
 					</thead>
 					<tbody>
-						{students.map((student, index) => (
+						{students.map((student, index) => {
+							const avatarObj = AVATARS[index % AVATARS.length];
+							return (
 							<tr
 								key={student.id}
 								className={index === 0 ? `${styles['results__row']} ${styles['results__row--winner']}` : styles['results__row']}
+								style={{ '--anim-delay': `${index * 80}ms` }}
 							>
 								<td>
 									<span className={styles['results__rank']}>
@@ -71,14 +78,17 @@ function QuizResults() {
 								</td>
 								<td>
 									<div className={styles['results__student']}>
-										<span className={styles['results__avatar']}>{student.name.charAt(0)}</span>
+										<div className={styles['results__avatar']}>
+											<img src={avatarObj.image} alt={avatarObj.id} className={styles['results__avatar-img']} />
+										</div>
 										<span>{student.name}{student.isMe ? ' ⭐' : ''}</span>
 									</div>
 								</td>
 								<td>{student.correctAnswers}/{student.totalQuestions}</td>
 								<td>{student.time}</td>
 							</tr>
-						))}
+							);
+						})}
 					</tbody>
 				</table>
 			</section>

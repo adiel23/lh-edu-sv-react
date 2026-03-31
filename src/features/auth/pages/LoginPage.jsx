@@ -18,12 +18,12 @@ function LoginPage() {
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
-      navigate('/students/onboarding', { state: { skipKeypad: true } });
+      navigate('/students/enter-session', { state: { skipKeypad: true } });
     }, 2000);
   };
 
   const handleStudentHodlerLogin = () => {
-    navigate('/students/onboarding');
+    navigate('/students/enter-session', { state: { skipKeypad: false } });
   };
 
   return (

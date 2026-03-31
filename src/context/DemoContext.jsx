@@ -42,13 +42,17 @@ function DemoProvider({ children }) {
 
   /** Student submits an answer for one question */
   function submitAnswer(questionId, option) {
-    setState((prev) => ({
-      ...prev,
-      studentAnswers: [
-        ...prev.studentAnswers,
-        { questionId, selectedOptionId: option.id, isCorrect: option.correcta },
-      ],
-    }));
+    setState((prev) => {
+      // Remover respuesta previa para la misma pregunta si existe
+      const filtered = prev.studentAnswers.filter(a => a.questionId !== questionId);
+      return {
+        ...prev,
+        studentAnswers: [
+          ...filtered,
+          { questionId, selectedOptionId: option.id, isCorrect: option.correcta },
+        ],
+      };
+    });
   }
 
   /** Teacher starts the quiz */

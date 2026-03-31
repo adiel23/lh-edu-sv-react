@@ -1,48 +1,115 @@
 @import '../../colors.css';
 
 .container {
-  background: wheat;
-  padding: 50px;
-  height: 100%;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.welcome-card {
-  margin: auto;
+/* --- BENTO GRID SYSTEM --- */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.bento-item {
   background-color: white;
   border-radius: var(--border-radius-lg);
-  padding: 3rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  padding: 2.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.bento-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.06);
+}
+
+/* --- HERO CARD (Spans 3 cols on desktop) --- */
+.welcome-card {
+  grid-column: 1 / -1;
   position: relative;
   overflow: hidden;
-  border: 1px solid #f0f0f0;
+  background: white;
+}
+
+.welcome-card__content {
+  position: relative;
+  z-index: 2;
+  max-width: 60%;
 }
 
 .welcome-card__badge {
   display: inline-block;
   background-color: #fff5e6;
-  color: #cc8400;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 0.7rem;
-  font-weight: bold;
+  color: var(--color-orange);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
   margin-bottom: 1.5rem;
 }
 
 .welcome-card__title {
   font-size: 2.5rem;
+  font-weight: 800;
   margin: 0 0 1rem 0;
-  color: #1a1a1a;
+  color: var(--color-text-dark);
+  letter-spacing: -0.5px;
 }
 
 .welcome-card__text {
   color: var(--color-text-muted);
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
 }
 
 .welcome-card__actions {
   display: flex;
   gap: 1rem;
+}
+
+/* --- STAT CARDS --- */
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.stat-card__icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  background: #f8f9fa;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+}
+
+.stat-card--highlight .stat-card__icon {
+  background: #fff5e6;
+}
+
+.stat-card__value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text-dark);
+  letter-spacing: -1px;
+}
+
+.stat-card__label {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin: 0;
+  font-weight: 500;
 }
 
 /* --- REUSABLE BUTTONS --- */

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './EnterSessionPage.module.css';
 import Header from '../components/Header';
 import { useDemo } from '../../../context/useDemo';
@@ -8,6 +8,8 @@ function EnterSessionPage() {
   const [pin, setPin] = useState('');
   const [shake, setShake] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const skipKeypad = location.state?.skipKeypad || false;
   const { joinSession } = useDemo();
 
   const handleNumberClick = (number) => {
@@ -17,7 +19,7 @@ function EnterSessionPage() {
       if (newPin.length === 6) {
         // En el demo, entramos automáticamente.
         if (joinSession(newPin)) {
-          navigate('/students/onboarding');
+          navigate('/students/onboarding', { state: { skipKeypad } });
         }
       }
     }
@@ -33,7 +35,7 @@ function EnterSessionPage() {
     if (!isPinComplete) return;
 
     if (joinSession(pin)) {
-      navigate('/students/onboarding');
+      navigate('/students/onboarding', { state: { skipKeypad } });
     } else {
       // Wrong PIN — trigger shake animation
       setShake(true);
@@ -62,14 +64,17 @@ function EnterSessionPage() {
           Introduce tu PIN de 6 dígitos<br />para entrar a la clase
         </p>
 
-        {/* Avatar Animado / Estático */}
-        <div className={styles['enter-session-page__avatar-face']}>
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="48" fill="#FDE093" stroke="#111827" strokeWidth="4"/>
-            <ellipse cx="38" cy="45" rx="3" ry="8" fill="#111827"/>
-            <ellipse cx="62" cy="45" rx="3" ry="8" fill="#111827"/>
-            <path d="M 45 65 Q 50 72 55 65" stroke="#111827" strokeWidth="4" fill="transparent" strokeLinecap="round"/>
-          </svg>
+        {/* Avatar Animado con efecto de brillo */}
+        <div className={styles['enter-session-page__avatar-wrapper']}>
+          <div className={styles['enter-session-page__avatar-glow']}></div>
+          <div className={styles['enter-session-page__avatar-face']}>
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="#FDE093" stroke="#111827" strokeWidth="4"/>
+              <ellipse cx="38" cy="45" rx="3" ry="8" fill="#111827"/>
+              <ellipse cx="62" cy="45" rx="3" ry="8" fill="#111827"/>
+              <path d="M 45 65 Q 50 72 55 65" stroke="#111827" strokeWidth="4" fill="transparent" strokeLinecap="round"/>
+            </svg>
+          </div>
         </div>
 
         {/* Display del PIN */}

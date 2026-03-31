@@ -128,10 +128,43 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.enter-session-page__avatar-face {
-  width: 50px;
-  height: 50px;
+.enter-session-page__avatar-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 2rem;
+  animation: bounceSlow 3s infinite;
+}
+
+@keyframes bounceSlow {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.enter-session-page__avatar-glow {
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  right: -16px;
+  bottom: -16px;
+  background-color: rgba(249, 115, 22, 0.2);
+  border-radius: 50%;
+  filter: blur(20px);
+  z-index: 0;
+}
+
+.enter-session-page__avatar-face {
+  width: 70px;
+  height: 70px;
+  position: relative;
+  z-index: 1;
 }
 
 /* --- PIN Display --- */

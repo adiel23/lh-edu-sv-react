@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import styles from './DashboardPage.module.css';
 
 const DashboardPage = () => {
+  const currentDate = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
   return (
     <div className={styles.dashboard}>
       <DashboardSidebar/>
@@ -13,7 +14,7 @@ const DashboardPage = () => {
           <p className={styles.header__breadcrumb}>ACADEMIA HODLER</p>
           <div className={styles.header__location}>
               <p className={styles.header__city}>SAN SALVADOR</p>
-              <p className={styles.header__date}>20 Mar, 2026</p>
+              <p className={styles.header__date}>{currentDate}</p>
           </div>
         </header>
         <Outlet/>

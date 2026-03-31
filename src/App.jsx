@@ -14,6 +14,9 @@ import Lobby from './features/teachers/components/Lobby';
 import LiveSession from './features/teachers/components/LiveSession';
 import TeacherQuizResults from './features/teachers/components/QuizResults';
 import DashboardPlaceholder from './features/teachers/components/DashboardPlaceholder';
+import StudentList from './features/teachers/components/StudentList';
+import TeacherReports from './features/teachers/components/TeacherReports';
+import TeacherSettings from './features/teachers/components/TeacherSettings';
 
 function App() {
   return (
@@ -29,9 +32,10 @@ function App() {
         <Route path="/students/quiz-results" element={<StudentQuizResults/>} />
         <Route path="/teachers/dashboard" element={<DashboardPage />}>
           <Route index element={<DashboardHome />} /> {/* Lo que se ve por defecto */}
-          <Route path="students" element={<DashboardPlaceholder title="Estudiantes" icon="👥" />} />
-          <Route path="reports" element={<DashboardPlaceholder title="Reportes" icon="📊" />} />
-          <Route path="settings" element={<DashboardPlaceholder title="Configuración" icon="⚙️" />} />
+          <Route path="students" element={<StudentList />} />
+          <Route path="reports" element={<TeacherReports />} />
+          <Route path="settings" element={<TeacherSettings />} />
+          <Route path="sessions" element={<CreateSession />} />
           <Route path="sessions/new" element={<CreateSession/>} />
           <Route path="sessions/lobby" element={<Lobby/>} />
           <Route path="sessions/live" element={<LiveSession/>} />

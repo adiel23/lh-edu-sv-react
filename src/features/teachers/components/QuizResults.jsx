@@ -3,97 +3,160 @@ import styles from './QuizResults.module.css';
 import { useDemo } from '../../../context/useDemo';
 import { DEMO_SIMULATED_STUDENTS } from '../../../data/demoData';
 import { AVATARS } from '../../students/pages/OnboardingPage';
+import { useNavigate } from 'react-router-dom';
+import { 
+  LuTrophy, 
+  LuMedal, 
+  LuChevronRight, 
+  LuLayoutDashboard,
+  LuShare2,
+  LuDownload,
+  LuTimer,
+  LuCircleCheck
+} from 'react-icons/lu';
 
-function QuizResults() {
-	const { getResults, sessionPhase } = useDemo();
+const QuizResults = () => {
+    const { getResults, sessionPhase } = useDemo();
+    const navigate = useNavigate();
 
-	// If the student completed the quiz use real results; otherwise show simulated data
-	const students = sessionPhase === 'completed'
-		? getResults()
-		: DEMO_SIMULATED_STUDENTS
-			.map((s) => ({ ...s, isMe: false }))
-			.sort((a, b) => b.correctAnswers - a.correctAnswers);
+    const students = sessionPhase === 'completed'
+        ? getResults()
+        : [...DEMO_SIMULATED_STUDENTS]
+            .map((s) => ({ ...s, isMe: false }))
+            .sort((a, b) => b.correctAnswers - a.correctAnswers);
 
-	const winner = students[0];
+    const topThree = students.slice(0, 3);
+    const others = students.slice(3);
 
-	return (
-		<div className={styles.container}>
-			<section className={styles.hero}>
-				<span className={styles['hero__badge']}>RESULTADOS FINALES</span>
-				<h1 className={styles['hero__title']}>Ganador del Quiz</h1>
-				<div className={styles['hero__winner-card']}>
-					<div className={styles['hero__winner-main']}>
-						<div className={styles['hero__winner-avatar']}>
-							<img src={AVATARS[0].image} alt={AVATARS[0].id} className={styles['hero__winner-img']} />
-							<span className={styles['hero__crown']} aria-hidden="true">👑</span>
-						</div>
-						<div>
-							<p className={styles['hero__winner-label']}>Primer lugar</p>
-							<h2 className={styles['hero__winner-name']}>{winner.name}</h2>
-						</div>
-					</div>
-					<div className={styles['hero__winner-stats']}>
-						<div className={styles['hero__stat']}>
-							<span className={styles['hero__stat-label']}>Aciertos</span>
-							<strong className={styles['hero__stat-value']}>
-								{winner.correctAnswers}/{winner.totalQuestions}
-							</strong>
-						</div>
-						<div className={styles['hero__stat']}>
-							<span className={styles['hero__stat-label']}>Tiempo</span>
-							<strong className={styles['hero__stat-value']}>{winner.time}</strong>
-						</div>
-					</div>
-				</div>
-			</section>
+    return (
+        <div className={styles.container}>
+            <header className={styles.header}>
+                <div className={styles.header__left}>
+                    <div className={styles.header__badge}>SESIÓN FINALIZADA</div>
+                    <h1 className={styles.header__title}>Resultados del Cuestionario</h1>
+                </div>
+                <div className={styles.header__actions}>
+                    <button className={styles.btn_outline} title="Descargar Reporte">
+                        <LuDownload size={18} />
+                    </button>
+                    <button className={styles.btn_outline} title="Compartir">
+                        <LuShare2 size={18} />
+                    </button>
+                    <button className={styles.btn_primary} onClick={() => navigate('/teachers/dashboard')}>
+                        Ir al Inicio
+                    </button>
+                </div>
+            </header>
 
-			<section className={styles.results}>
-				<div className={styles['results__header']}>
-					<h3 className={styles['results__title']}>Tabla de resultados</h3>
-					<span className={styles['results__subtitle']}>{students.length} estudiantes evaluados</span>
-				</div>
+            <section className={styles.podium_section}>
+                <div className={styles.podium}>
+                    {/* Second Place */}
+                    {topThree[1] && (
+                        <div className={`${styles.podium__item} ${styles.second}`}>
+                            <div className={styles.podium__avatar_wrapper}>
+                                <img src={AVATARS[1 % AVATARS.length].image} alt="" className={styles.podium__avatar} />
+                                <div className={styles.podium__rank_badge}>2</div>
+                            </div>
+                            <div className={styles.podium__info}>
+                                <p className={styles.podium__name}>{topThree[1].name}</p>
+                                <p className={styles.podium__score}>{topThree[1].correctAnswers} pts</p>
+                            </div>
+                            <div className={styles.podium__base} />
+                        </div>
+                    )}
 
-				<table className={styles['results__table']}>
-					<thead>
-						<tr>
-							<th>Posición</th>
-							<th>Estudiante</th>
-							<th>Aciertos</th>
-							<th>Tiempo</th>
-						</tr>
-					</thead>
-					<tbody>
-						{students.map((student, index) => {
-							const avatarObj = AVATARS[index % AVATARS.length];
-							return (
-							<tr
-								key={student.id}
-								className={index === 0 ? `${styles['results__row']} ${styles['results__row--winner']}` : styles['results__row']}
-								style={{ '--anim-delay': `${index * 80}ms` }}
-							>
-								<td>
-									<span className={styles['results__rank']}>
-										{index === 0 ? '🥇' : `#${index + 1}`}
-									</span>
-								</td>
-								<td>
-									<div className={styles['results__student']}>
-										<div className={styles['results__avatar']}>
-											<img src={avatarObj.image} alt={avatarObj.id} className={styles['results__avatar-img']} />
-										</div>
-										<span>{student.name}{student.isMe ? ' ⭐' : ''}</span>
-									</div>
-								</td>
-								<td>{student.correctAnswers}/{student.totalQuestions}</td>
-								<td>{student.time}</td>
-							</tr>
-							);
-						})}
-					</tbody>
-				</table>
-			</section>
-		</div>
-	);
-}
+                    {/* First Place */}
+                    {topThree[0] && (
+                        <div className={`${styles.podium__item} ${styles.first}`}>
+                            <LuTrophy className={styles.podium__trophy} size={32} />
+                            <div className={styles.podium__avatar_wrapper}>
+                                <img src={AVATARS[0 % AVATARS.length].image} alt="" className={styles.podium__avatar} />
+                                <div className={styles.podium__rank_badge}>1</div>
+                            </div>
+                            <div className={styles.podium__info}>
+                                <p className={styles.podium__name}>{topThree[0].name}</p>
+                                <p className={styles.podium__score}>{topThree[0].correctAnswers} pts</p>
+                            </div>
+                            <div className={styles.podium__base} />
+                        </div>
+                    )}
+
+                    {/* Third Place */}
+                    {topThree[2] && (
+                        <div className={`${styles.podium__item} ${styles.third}`}>
+                            <div className={styles.podium__avatar_wrapper}>
+                                <img src={AVATARS[2 % AVATARS.length].image} alt="" className={styles.podium__avatar} />
+                                <div className={styles.podium__rank_badge}>3</div>
+                            </div>
+                            <div className={styles.podium__info}>
+                                <p className={styles.podium__name}>{topThree[2].name}</p>
+                                <p className={styles.podium__score}>{topThree[2].correctAnswers} pts</p>
+                            </div>
+                            <div className={styles.podium__base} />
+                        </div>
+                    )}
+                </div>
+            </section>
+
+            <section className={styles.table_section}>
+                <div className={styles.table_card}>
+                    <div className={styles.table_card__header}>
+                        <LuMedal size={20} className={styles.icon_primary} />
+                        <h2>Clasificación Completa</h2>
+                    </div>
+                    
+                    <div className={styles.table_responsive}>
+                        <table className={styles.table}>
+                            <thead>
+                                <tr>
+                                    <th>POS</th>
+                                    <th>ESTUDIANTE</th>
+                                    <th><LuCircleCheck size={14} /> PUNTOS</th>
+                                    <th><LuTimer size={14} /> TIEMPO</th>
+                                    <th />
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {students.map((student, index) => {
+                                    const avatarObj = AVATARS[index % AVATARS.length];
+                                    return (
+                                        <tr key={student.id} className={index < 3 ? styles.row_highlight : ''}>
+                                            <td className={styles.cell_rank}>
+                                                <span className={`${styles.rank_icon} ${styles['rank_' + (index + 1)]}`}>
+                                                    {index + 1}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div className={styles.student_cell}>
+                                                    <div className={styles.avatar_mini}>
+                                                        <img src={avatarObj.image} alt="" />
+                                                    </div>
+                                                    <span className={styles.name}>
+                                                        {student.name}
+                                                        {student.isMe && <span className={styles.me_badge}>TÚ</span>}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td className={styles.cell_score}>
+                                                <strong>{student.correctAnswers}</strong>
+                                                <span className={styles.total_q}>/{student.totalQuestions}</span>
+                                            </td>
+                                            <td className={styles.cell_time}>{student.time}</td>
+                                            <td className={styles.cell_action}>
+                                                <button className={styles.btn_icon}>
+                                                    <LuChevronRight size={18} />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    );
+};
 
 export default QuizResults;

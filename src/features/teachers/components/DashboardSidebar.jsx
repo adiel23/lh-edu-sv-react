@@ -1,91 +1,92 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './DashboardSidebar.css';
 import { Link, useLocation } from 'react-router-dom';
+import { DemoContext } from '../../../context/DemoContext';
 import {
-  FaGraduationCap,
-  FaHouse,
-  FaChalkboardUser,
-  FaUsers,
-  FaChartColumn,
-  FaGear
-} from 'react-icons/fa6';
+  LuGraduationCap,
+  LuLayoutDashboard,
+  LuBookOpen,
+  LuUsers,
+  LuTrendingUp,
+  LuSettings,
+  LuLogOut,
+  LuLifeBuoy
+} from 'react-icons/lu';
+
+const MENU_ITEMS = [
+  { path: '/teachers/dashboard', label: 'Inicio', icon: LuLayoutDashboard, exact: true },
+  { path: '/teachers/dashboard/sessions', label: 'Sesiones', icon: LuBookOpen },
+  { path: '/teachers/dashboard/students', label: 'Estudiantes', icon: LuUsers },
+  { path: '/teachers/dashboard/reports', label: 'Reportes', icon: LuTrendingUp },
+  { path: '/teachers/dashboard/settings', label: 'Configuración', icon: LuSettings },
+];
 
 function DashboardSidebar() {
-    const location = useLocation();
+  const location = useLocation();
+  const { resetSession } = useContext(DemoContext);
 
-    const isActive = (path) => {
-        if (path === '/teachers/dashboard' && location.pathname === '/teachers/dashboard') {
-            return true;
-        }
-        if (path !== '/teachers/dashboard' && location.pathname.startsWith(path)) {
-            return true;
-        }
-        return false;
-    };
+  const handleLogout = () => {
+    resetSession();
+    window.location.href = '/';
+  };
 
-    return <aside className="sidebar">
-        <div className="sidebar__logo-container">
-          <div className="sidebar__logo-icon">
-            <FaGraduationCap size={20} />
-          </div>
-          <div>
-            <h1 className="sidebar__title">EduDash</h1>
-            <p className="sidebar__subtitle">PANEL DE PROFES</p>
-          </div>
+  const checkActive = (path, exact = false) => {
+    if (exact) return location.pathname === path;
+    return location.pathname.startsWith(path);
+  };
+
+  return (
+    <aside className="sidebar">
+      <div className="sidebar__logo-container">
+        <div className="sidebar__logo-icon">
+          <LuGraduationCap size={24} />
         </div>
+        <div>
+          <h1 className="sidebar__title">EduDash</h1>
+          <p className="sidebar__subtitle">PANEL DE PROFES</p>
+        </div>
+      </div>
 
-        <nav className="sidebar__nav">
-          <ul className="sidebar__list">
-            <li className={`sidebar__item ${isActive('/teachers/dashboard') && location.pathname === '/teachers/dashboard' ? 'sidebar__item--active' : ''}`}>
-              <Link to="/teachers/dashboard" className="sidebar__link">
-                <FaHouse />
-                <span>Inicio</span>
+      <nav className="sidebar__nav">
+        <ul className="sidebar__list">
+          {MENU_ITEMS.map((item) => (
+            <li 
+              key={item.path} 
+              className={`sidebar__item ${checkActive(item.path, item.exact) ? 'sidebar__item--active' : ''}`}
+            >
+              <Link to={item.path} className="sidebar__link">
+                <item.icon size={22} />
+                <span>{item.label}</span>
               </Link>
             </li>
-            <li className={`sidebar__item ${isActive('/teachers/dashboard/sessions') ? 'sidebar__item--active' : ''}`}>
-              <Link to="/teachers/dashboard/sessions/new" className="sidebar__link">
-                <FaChalkboardUser />
-                <span>Sesiones</span>
-              </Link>
-            </li>
-            <li className={`sidebar__item ${isActive('/teachers/dashboard/students') ? 'sidebar__item--active' : ''}`}>
-              <Link to="/teachers/dashboard/students" className="sidebar__link">
-                <FaUsers />
-                <span>Estudiantes</span>
-              </Link>
-            </li>
-            <li className={`sidebar__item ${isActive('/teachers/dashboard/reports') ? 'sidebar__item--active' : ''}`}>
-              <Link to="/teachers/dashboard/reports" className="sidebar__link">
-                <FaChartColumn />
-                <span>Reportes</span>
-              </Link>
-            </li>
-            <li className={`sidebar__item ${isActive('/teachers/dashboard/settings') ? 'sidebar__item--active' : ''}`}>
-              <Link to="/teachers/dashboard/settings" className="sidebar__link">
-                <FaGear />
-                <span>Configuración</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
+          ))}
+        </ul>
+      </nav>
 
+      <div className="sidebar__footer">
         <div className="sidebar__support-card">
-          <p className="sidebar__support-label">soporte</p>
-          <button className="sidebar__support-button">AYUDA Y TUTORIALES</button>
+          <span className="sidebar__support-label">soporte</span>
+          <button className="sidebar__support-button">
+            <LuLifeBuoy size={18} />
+            AYUDA Y TUTORIALES
+          </button>
         </div>
 
         <div className="sidebar__user">
           <div className="sidebar__avatar">P</div>
           <div className="sidebar__user-info">
-            <p className="sidebar__user-name"><b>Profe de Prueba</b></p>
+            <p className="sidebar__user-name">Hola Profesor</p>
             <p className="sidebar__user-status">DOCENTE ACTIVO</p>
           </div>
         </div>
         
-        <button className="sidebar__logout">
-          <span className="sidebar__icon">🚪</span> CERRAR SESIÓN
+        <button className="sidebar__logout" onClick={handleLogout}>
+          <LuLogOut size={20} /> 
+          <span>CERRAR SESIÓN</span>
         </button>
-      </aside>
+      </div>
+    </aside>
+  );
 }
 
-export default DashboardSidebar;
+export default DashboardSidebar;

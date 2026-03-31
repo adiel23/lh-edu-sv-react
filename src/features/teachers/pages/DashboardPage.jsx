@@ -1,5 +1,6 @@
 import React from 'react';
 import DashboardSidebar from '../components/DashboardSidebar';
+import MobileNav from '../components/MobileNav';
 import { Outlet } from 'react-router-dom';
 import styles from './DashboardPage.module.css';
 
@@ -17,8 +18,12 @@ const DashboardPage = () => {
               <p className={styles.header__date}>{currentDate}</p>
           </div>
         </header>
-        <Outlet/>
+        <div className={styles.content_wrapper}>
+          <Outlet/>
+        </div>
       </main>
+
+      <MobileNav />
     </div>
   );
 };

@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './LiveSession.module.css';
 import { useNavigate } from 'react-router-dom';
 import { DEMO_LOBBY_STUDENTS } from '../../../data/demoData';
 import { AVATARS } from '../../students/pages/OnboardingPage';
+import { 
+  LuTimer, 
+  LuUsers, 
+  LuCircleCheck, 
+  LuLoaderCircle,
+  LuLayoutDashboard,
+  LuActivity
+} from 'react-icons/lu';
 
-function LiveSession() {
+const LiveSession = () => {
     const navigate = useNavigate();
     const totalSegundos = 30;
-    const [segundos, setSegundos] = React.useState(totalSegundos);
+    const [segundos, setSegundos] = useState(totalSegundos);
+    const [completedIds, setCompletedIds] = useState(new Set());
 
-    // Simulate students completing the quiz gradually
-    const [completedIds, setCompletedIds] = React.useState(new Set());
-
-    React.useEffect(() => {
-        // Students complete at staggered intervals within the session time
+    useEffect(() => {
         const completionDelays = [4000, 8000, 14000, 20000, 26000];
         const timers = DEMO_LOBBY_STUDENTS.map((s, i) =>
             setTimeout(() => {
@@ -23,7 +28,7 @@ function LiveSession() {
         return () => timers.forEach(clearTimeout);
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (segundos <= 0) {
             navigate('/teachers/dashboard/sessions/result', { replace: true });
             return;
@@ -51,22 +56,33 @@ function LiveSession() {
             <div className={styles['live-session']}>
                 <section className={styles.countdown}>
                     <div className={styles['countdown__content']}>
-                        <span className={styles['countdown__eyebrow']}>SESION EN VIVO</span>
-                        <h1 className={styles['countdown__title']}>La sesión ya está en marcha</h1>
+                        <div className={styles['countdown__badge']}>
+                            <div className={styles['countdown__dot']} />
+                            SESIÓN EN VIVO
+                        </div>
+                        <h1 className={styles['countdown__title']}>Monitoreo de Progreso</h1>
                         <p className={styles['countdown__subtitle']}>
-                            Supervisa el avance del grupo y espera a que el temporizador llegue a cero.
+                            La sesión finalizará automáticamente cuando el temporizador llegue a cero.
                         </p>
+                        
                         <div className={styles['countdown__meta']}>
-                            <div className={styles['countdown__timer-chip']}>
-                                <span className={styles['countdown__timer-label']}>Tiempo restante</span>
-                                <p className={styles['countdown__timer']}>{segundos}s</p>
+                            <div className={`${styles['countdown__timer-card']} ${segundos <= 5 ? styles.urgent : ''}`}>
+                                <LuTimer size={24} className={styles.icon} />
+                                <div>
+                                    <span className={styles.label}>Tiempo</span>
+                                    <p className={styles.value}>{segundos}s</p>
+                                </div>
                             </div>
-                            <div className={styles['countdown__stat']}>
-                                <span className={styles['countdown__stat-label']}>Avance general</span>
-                                <strong className={styles['countdown__stat-value']}>{completionPercent}%</strong>
+                            <div className={styles['countdown__stat-card']}>
+                                <LuActivity size={24} className={styles.icon} />
+                                <div>
+                                    <span className={styles.label}>Avance</span>
+                                    <p className={styles.value}>{completionPercent}%</p>
+                                </div>
                             </div>
                         </div>
-                        <div className={styles['countdown__progress-bar']}>
+
+                        <div className={styles['countdown__progress-track']}>
                             <div
                                 className={styles['countdown__progress-fill']}
                                 style={{ width: `${timerPercent}%` }}
@@ -75,99 +91,98 @@ function LiveSession() {
                     </div>
                 </section>
 
-                <section className={`${styles['statistics-card']} ${styles['statistics-card--completed']}`}>
-                    <span className={styles['statistics-card__eyebrow']}>Completaron</span>
-                    <h2 className={styles['statistics-card__title']}>Estudiantes finalizados</h2>
-                    <p className={styles['statistics-card__number']}>{completedCount} / {students.length}</p>
-                    <p className={styles['statistics-card__caption']}>
-                        Ya terminaron el quiz y sus respuestas quedaron registradas.
-                    </p>
-                    <div className={styles['statistics-card__progress-bar']}>
-                        <div
-                            className={styles['statistics-card__progress-fill']}
-                            style={{ width: `${completionPercent}%` }}
-                        />
-                    </div>
-                </section>
-
-                <section className={`${styles['statistics-card']} ${styles['statistics-card--pending']}`}>
-                    <span className={styles['statistics-card__eyebrow']}>Pendientes</span>
-                    <h2 className={styles['statistics-card__title']}>Estudiantes en proceso</h2>
-                    <p className={styles['statistics-card__number']}>{pendingCount} / {students.length}</p>
-                    <p className={styles['statistics-card__caption']}>
-                        Sigue su progreso antes de cerrar la sesión o pasar a resultados.
-                    </p>
-                    <div className={styles['statistics-card__progress-bar']}>
-                        <div
-                            className={`${styles['statistics-card__progress-fill']} ${styles['statistics-card__progress-fill--pending']}`}
-                            style={{ width: `${100 - completionPercent}%` }}
-                        />
-                    </div>
-                </section>
-
-                <section className={styles.table}>
-                    <div className={styles['table__topbar']}>
-                        <div>
-                            <h2 className={styles['table__title']}>Estudiantes en sesión</h2>
-                            <p className={styles['table__subtitle']}>Estado individual y progreso del cuestionario.</p>
+                <div className={styles.stats_grid}>
+                    <section className={`${styles['stats-card']} ${styles['stats-card--success']}`}>
+                        <div className={styles['stats-card__header']}>
+                            <LuCircleCheck size={20} />
+                            <span>FINALIZADOS</span>
                         </div>
-                        <span className={styles['table__badge']}>{students.length} conectados</span>
+                        <div className={styles['stats-card__body']}>
+                            <p className={styles.number}>{completedCount}</p>
+                            <p className={styles.caption}>Estudiantes listos</p>
+                        </div>
+                    </section>
+
+                    <section className={`${styles['stats-card']} ${styles['stats-card--info']}`}>
+                        <div className={styles['stats-card__header']}>
+                            <LuLoaderCircle size={20} className={styles.spin} />
+                            <span>EN PROCESO</span>
+                        </div>
+                        <div className={styles['stats-card__body']}>
+                            <p className={styles.number}>{pendingCount}</p>
+                            <p className={styles.caption}>Estudiantes activos</p>
+                        </div>
+                    </section>
+                </div>
+
+                <section className={styles.table_section}>
+                    <div className={styles['table__header']}>
+                        <div className={styles['table__header-left']}>
+                            <LuUsers size={20} />
+                            <h2>Lista de Clase</h2>
+                        </div>
+                        <span className={styles['table__count']}>{students.length} Conectados</span>
                     </div>
-                    <table className={styles['table__content']}>
-                        <thead className={styles['table__header']}>
-                            <tr className={styles['table__row']}>
-                                <th className={styles['table__cell']}>Nombre</th>
-                                <th className={styles['table__cell']}>Estado</th>
-                                <th className={styles['table__cell']}>Progreso</th>
-                            </tr>
-                        </thead>
-                        <tbody className={styles['table__body']}>
-                            {students.map((student, index) => {
-                                const avatarObj = AVATARS[index % AVATARS.length];
-                                return (
-                                <tr key={student.id} className={styles['table__row']}>
-                                    <td className={styles['table__cell']}>
-                                        <div className={styles['table__student']}>
-                                            <div className={styles['table__avatar']}>
-                                                <img src={avatarObj.image} alt={avatarObj.id} className={styles['table__avatar-img']} />
-                                            </div>
-                                            <span className={styles['table__name']}>{student.name}</span>
-                                        </div>
-                                    </td>
-                                    <td className={styles['table__cell']}>
-                                        <span
-                                            className={`${styles['table__status']} ${
-                                                student.status === 'completed'
-                                                    ? styles['table__status--completed']
-                                                    : styles['table__status--pending']
-                                            }`}
-                                        >
-                                            {student.status === 'completed' ? 'Finalizado' : 'En progreso'}
-                                        </span>
-                                    </td>
-                                    <td className={styles['table__cell']}>
-                                        <div className={styles['table__progress']}>
-                                            <div className={styles['table__progress-track']}>
-                                                <div
-                                                    className={`${styles['table__progress-fill']} ${
-                                                        student.status === 'completed'
-                                                            ? styles['table__progress-fill--completed']
-                                                            : styles['table__progress-fill--pending']
-                                                    }`}
-                                                    style={{ width: `${student.progress}%` }}
-                                                />
-                                            </div>
-                                            <span className={styles['table__progress-value']}>{student.progress}%</span>
-                                        </div>
-                                    </td>
+
+                    <div className={styles.table_container}>
+                        <table className={styles.table}>
+                            <thead>
+                                <tr>
+                                    <th>ESTUDIANTE</th>
+                                    <th>ESTADO</th>
+                                    <th>PROGRESO</th>
                                 </tr>
-                            )})}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {students.map((student, index) => {
+                                    const avatarObj = AVATARS[index % AVATARS.length];
+                                    const isDone = student.status === 'completed';
+                                    return (
+                                    <tr key={student.id} className={isDone ? styles.row_done : ''}>
+                                        <td>
+                                            <div className={styles.student_cell}>
+                                                <div className={styles.avatar_mini}>
+                                                    <img src={avatarObj.image} alt="" />
+                                                </div>
+                                                <span className={styles.name}>{student.name}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span className={`${styles.status_pill} ${isDone ? styles.done : styles.pending}`}>
+                                                {isDone ? <LuCircleCheck size={12} /> : <LuLoaderCircle size={12} className={styles.spin} />}
+                                                {isDone ? 'Finalizado' : 'En proceso'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div className={styles.progress_cell}>
+                                                <div className={styles.mini_track}>
+                                                    <div 
+                                                        className={`${styles.mini_fill} ${isDone ? styles.fill_done : ''}`} 
+                                                        style={{ width: `${student.progress}%` }} 
+                                                    />
+                                                </div>
+                                                <span className={styles.percent}>{student.progress}%</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )})}
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
+
+                <div className={styles.actions}>
+                    <button className={styles.btn_secondary} onClick={() => navigate('/teachers/dashboard')}>
+                        <LuLayoutDashboard size={18} />
+                        Inicio
+                    </button>
+                    <button className={styles.btn_primary} onClick={() => navigate('/teachers/dashboard/sessions/result')}>
+                        Finalizar Sesión
+                    </button>
+                </div>
             </div>
         </div>
     );
-}
+};
 
 export default LiveSession;
